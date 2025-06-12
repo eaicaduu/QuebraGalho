@@ -1,0 +1,22 @@
+
+    body {
+        background-color: rgb(255, 255, 255);
+    }
+
+    .product-card {
+        transition: transform 0.2s;
+    }
+
+    .product-card:hover {
+        transform: scale(1.03);
+    }
+
+    .nav-item.dropdown .dropdown-menu {
+        display: none;
+    }
+
+    @media (min-width: 990px) {
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+        }
+    }
