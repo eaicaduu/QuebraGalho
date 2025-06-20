@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/database.php'; 
+require_once __DIR__ . '/../config/database.php';
 
 header('Content-Type: application/json');
 
@@ -58,12 +58,11 @@ if ($stmtCPF->rowCount() > 0) {
 
 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-$stmtInsert = $conn->prepare("INSERT INTO usuarios (nome, cpf, email, senha, perm_admin) VALUES (:nome, :cpf, :email, :senha, :perm_admin)");
+$stmtInsert = $conn->prepare("INSERT INTO usuarios (nome, cpf, email, senha) VALUES (:nome, :cpf, :email, :senha)");
 $stmtInsert->bindParam(':nome', $nome);
 $stmtInsert->bindParam(':cpf', $cpf);
 $stmtInsert->bindParam(':email', $email);
 $stmtInsert->bindParam(':senha', $senhaHash);
-$stmtInsert->bindParam(':perm_admin', 0);
 
 if ($stmtInsert->execute()) {
     echo json_encode(['success' => true]);

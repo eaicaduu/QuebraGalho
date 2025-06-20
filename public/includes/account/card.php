@@ -1,4 +1,4 @@
-<div class="container mt-3">
+<div class="container mt-2">
     <div class="card shadow-sm">
         <div class="card-body">
             <form id="formAccount">
@@ -32,12 +32,6 @@
 
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-secondary" id="btnSalvar" disabled>Salvar Alterações</button>
-
-                    <?php if (!empty($user['perm_admin']) && $user['perm_admin'] == 1): ?>
-                    <a href="admin/painel.php" class="btn btn-dark">
-                        <i class="bi bi-speedometer2"></i> Painel Admin
-                    </a>
-                    <?php endif; ?>
 
                     <a href="logout.php" class="btn btn-danger">
                         <i class="bi bi-box-arrow-right"></i> Sair

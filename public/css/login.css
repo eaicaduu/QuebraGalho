@@ -5,6 +5,5 @@ body {
 }
 
 input::placeholder {
-  opacity: 0.2;
   font-family: 'Noto Sans';
 }

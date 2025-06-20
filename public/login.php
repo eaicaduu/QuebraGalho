@@ -1,8 +1,7 @@
 <?php 
 session_start();
-
 if (isset($_SESSION['usuario_cpf'])) {
-    header("Location: index.php");
+    header("Location: account.php");
     exit();
 }
 
@@ -33,9 +32,19 @@ if (isset($_SESSION['usuario_cpf'])) {
 
             <form id="loginForm">
 
-                <input maxlength="14" placeholder="CPF" name="cpf" id="cpf" class="form-control mb-3" autofocus>
+                <input maxlength="14" placeholder="CPF" name="cpf" id="cpf" class="form-control mb-3" autofocus
+                    value="<?php echo isset($_COOKIE['remember_cpf']) ? htmlspecialchars($_COOKIE['remember_cpf']) : ''; ?>">
 
-                <input type="password" placeholder="Senha" class="form-control mb-3" name="password" id="password">
+                <div class="mb-3 position-relative">
+                    <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" value="<?php 
+                     if (isset($_COOKIE['remember_senha'])) { 
+                     $chave = 'minha-chave-secreta';
+                     echo htmlspecialchars(openssl_decrypt($_COOKIE['remember_senha'], 'AES-128-ECB', $chave));
+                     }
+                    ?>">
+                    <i class="bi bi-eye" id="toggle-password"
+                        style="position: absolute; top: 50%; right: 12px; transform: translateY(-50%); cursor: pointer;"></i>
+                </div>
 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="form-check mb-0">
@@ -62,8 +71,8 @@ if (isset($_SESSION['usuario_cpf'])) {
         </div>
     </div>
 
-    <script src="js/login.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

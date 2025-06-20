@@ -67,7 +67,8 @@ $erroCadastro = isset($_GET['erro']);
                 <button type="submit" id="submitButton" class="btn btn-success w-100 mb-3">Cadastrar</button>
 
                 <div class="text-center" id="loginLink">
-                    <a href="login.php" class="text-decoration-none">Já tem conta? <strong>Fazer login</strong></a>
+                    <a href="login.php" class="text-decoration-none text-dark">Já tem conta? <strong>Fazer
+                            login</strong></a>
                 </div>
 
             </form>
