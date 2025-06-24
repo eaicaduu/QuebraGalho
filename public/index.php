@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../app/config/database.php';
+session_start();
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -7,6 +8,10 @@ $conn = $db->getConnection();
 $stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 ORDER BY id DESC");
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $conn->prepare("SELECT id, nome FROM categorias");
+$stmt->execute();
+$categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -28,8 +33,18 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php include 'includes/index/nav.php'; ?>
 
-    <?php include 'includes/index/container.php'; ?>
+    <?php include 'includes/index/categorias.php'; ?>
 
+    <?php include 'includes/index/banner.php'; ?>
+
+    <?php include 'includes/index/body.php'; ?>
+
+    <?php include 'includes/index/footer.php'; ?>
+
+    <script>
+        const isLoggedIn = <?= isset($_SESSION['usuario_cpf']) ? 'true' : 'false' ?>;
+    </script>
+    <script src="js/salvar_produto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

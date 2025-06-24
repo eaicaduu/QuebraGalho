@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="text-muted text-end text-md-start">
-                    Total de usuários: <strong><?= $totalUsuarios ?></strong>
+                    Total: <strong><?= $totalUsuarios ?></strong>
                 </div>
             </div>
         </div>

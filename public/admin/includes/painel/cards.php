@@ -35,9 +35,9 @@
             <div class="col-12 col-sm-6 col-md-4">
                 <div class="card text-center shadow-sm border-0">
                     <div class="card-body">
-                        <i class="bi bi-clipboard-data text-dark" style="font-size: 3rem;"></i>
-                        <h5 class="card-title mt-3">Estoque</h5>
-                        <a href="estoque.php" class="btn btn-dark mt-2">Gerenciar</a>
+                        <i class="bi bi-menu-up text-dark" style="font-size: 3rem;"></i>
+                        <h5 class="card-title mt-3">Categorias</h5>
+                        <a href="categorias.php" class="btn btn-dark mt-2">Gerenciar</a>
                     </div>
                 </div>
             </div>

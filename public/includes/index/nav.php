@@ -1,5 +1,4 @@
-<?php session_start(); ?>
-<nav class="navbar navbar-expand-lg bg-transparnt mb-4">
+<nav class="navbar navbar-expand-lg bg-transparnt">
     <div class="container d-flex align-items-center justify-content-between">
         <img src="images/logo.png" class="pe-none" height="50">
         <ul class="navbar-nav d-flex flex-row align-items-center">
