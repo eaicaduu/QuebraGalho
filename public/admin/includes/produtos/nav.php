@@ -11,3 +11,34 @@
         </span>
     </div>
 </nav>
+
+<div class="container mb-3">
+    <div class="row align-items-center">
+
+        <div class="col-md-4 mb-2 mb-md-0">
+            <div class="position-relative">
+                <input type="text" id="searchProduto" class="form-control ps-5 rounded-pill shadow-sm"
+                    placeholder="Pesquisar produto">
+                <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-8 mt-3 mt-md-0">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+                <div class="btn-group" role="group" aria-label="Ações de usuário">
+                    <button id="addproduct" class="btn btn-success btn-sm">
+                        <i class="bi bi-plus-lg"></i> Adicionar
+                    </button>
+                    <button id="btnImportar" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-download"></i> Importar
+                    </button>
+                    <input type="file" id="inputImportar" accept=".html,.xml,.pdf" style="display:none" />
+                </div>
+
+                <div class="text-muted text-end text-md-start">
+                    Cadastrados: <strong><?= $totalProdutos ?></strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

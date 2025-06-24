@@ -2,11 +2,11 @@
     <h1 class="text-center mb-4">Nossos Produtos</h1>
 
     <div class="row">
-        <?php if (!empty($products)): ?>
-        <?php foreach($products as $produto): ?>
+        <?php if (!empty($produtos)): ?>
+        <?php foreach($produtos as $produto): ?>
         <div class="col-md-4 mb-4">
             <div class="card product-card h-100 shadow-sm">
-                <img src="<?php echo htmlspecialchars($produto['imagem']); ?>" class="card-img-top"
+                <img src="../app/models/<?php echo htmlspecialchars($produto['imagem']); ?>" class="card-img-top"
                     alt="<?php echo htmlspecialchars($produto['nome']); ?>">
 
                 <div class="card-body d-flex flex-column">

@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../app/config/database.php';
-require_once __DIR__ . '/../app/models/produtos.php';
 
-$database = new Database();
-$db = $database->getConnection();
+$db = new Database();
+$conn = $db->getConnection();
 
-$product = new Product($db);
-$products = $product->listAll();
+$stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 ORDER BY id DESC");
+$stmt->execute();
+$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>

@@ -7,13 +7,15 @@ if (!isset($_SESSION['admin'])) {
 }
 
 require_once __DIR__ . '/../../app/config/database.php';
-require_once __DIR__ . '/../../app/models/produtos.php';
 
-$database = new Database();
-$db = $database->getConnection();
+$db = new Database();
+$conn = $db->getConnection();
 
-$product = new Product($db);
-$products = $product->listAll();
+$stmt = $conn->prepare("SELECT * FROM produtos ORDER BY id DESC");
+$stmt->execute();
+$produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$totalProdutos = count($produtos);
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +35,7 @@ $products = $product->listAll();
 
     <?php include 'includes/produtos/nav.php'; ?>
 
-    <?php include 'includes/produtos/container.php'; ?>
+    <?php include 'includes/produtos/body.php'; ?>
 
     <script src="js/produtos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
