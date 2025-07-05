@@ -1,14 +1,16 @@
 <div class="container-fluid mt-2">
-    <div class="table-responsive">
+    <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
         <table class="table table-hover table-bordered align-middle">
             <thead class="table-dark">
                 <tr>
                     <th style="width: 100px;">Imagem</th>
                     <th>ID</th>
+                    <th>Cód. Barras</th>
                     <th>Nome</th>
                     <th>Preço</th>
                     <th>Descrição</th>
                     <th>Estoque</th>
+                    <th>Fornecedor</th>
                     <th>Status</th>
                     <th style="width: 150px;">Ações</th>
                 </tr>
@@ -16,7 +18,7 @@
             <tbody>
 
                 <tr id="linha-nenhum-produto" style="display: none;">
-                    <td colspan="7" class="text-center text-muted">Nenhum produto encontrado.</td>
+                    <td colspan="10" class="text-center text-muted">Nenhum produto encontrado.</td>
                 </tr>
 
                 <?php if (!empty($produtos)): ?>
@@ -32,6 +34,7 @@
                                 <?php endif; ?>
                             </td>
                             <td><?= htmlspecialchars($produto['id']) ?></td>
+                            <td><?= htmlspecialchars($produto['codigo_barras']) ?></td>
                             <td><?= htmlspecialchars($produto['nome']) ?></td>
                             <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
                             <td class="text-truncate" style="max-width: 200px;"
@@ -39,6 +42,7 @@
                                 <?= htmlspecialchars($produto['descricao']) ?>
                             </td>
                             <td><?= htmlspecialchars($produto['quantidade']) ?></td>
+                            <td><?= htmlspecialchars($produto['fornecedor']) ?></td>
                             <td>
                                 <?php if ($produto['status'] === 1): ?>
                                     <span class="badge bg-success">Ativo</span>

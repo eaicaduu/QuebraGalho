@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../app/config/database.php';
 $db = new Database();
 $conn = $db->getConnection();
 
-$stmt = $conn->prepare("SELECT * FROM produtos ORDER BY id DESC");
+$stmt = $conn->prepare("SELECT * FROM produtos ORDER BY id ASC");
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -37,7 +37,11 @@ $totalProdutos = count($produtos);
 
     <?php include 'includes/produtos/body.php'; ?>
 
-    <script src="js/produtos.js"></script>
+    <script src="js/produtos/importar_produto.js"></script>
+    <script src="js/produtos/adicionar_produto.js"></script>
+    <script src="js/produtos/editar_produto.js"></script>
+    <script src="js/produtos/excluir_produto.js"></script>
+    <script src="js/produtos/pesquisar_produto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

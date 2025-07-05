@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../config/database.php';
-
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -21,6 +20,8 @@ $preco = floatval($_POST['preco']);
 $descricao = trim($_POST['descricao']);
 $quantidade = intval($_POST['quantidade']);
 $status = ($_POST['status'] == '1') ? 1 : 0;
+$fornecedor = trim($_POST['fornecedor'] ?? '');
+$codigoBarras = trim($_POST['codigo_barras'] ?? '');
 
 if (!isset($_FILES['imagem']) || $_FILES['imagem']['error'] !== UPLOAD_ERR_OK) {
     echo json_encode(['success' => false, 'message' => 'Imagem inválida ou não enviada']);
@@ -47,8 +48,9 @@ try {
     $db = new Database();
     $conn = $db->getConnection();
 
-    $stmt = $conn->prepare("INSERT INTO produtos (nome, preco, descricao, quantidade, status, imagem) 
-        VALUES (:nome, :preco, :descricao, :quantidade, :status, :imagem)");
+    $stmt = $conn->prepare("INSERT INTO produtos 
+        (nome, preco, descricao, quantidade, status, imagem, fornecedor, codigo_barras) 
+        VALUES (:nome, :preco, :descricao, :quantidade, :status, :imagem, :fornecedor, :codigo_barras)");
 
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':preco', $preco);
@@ -56,6 +58,8 @@ try {
     $stmt->bindParam(':quantidade', $quantidade);
     $stmt->bindParam(':status', $status, PDO::PARAM_BOOL);
     $stmt->bindParam(':imagem', $caminhoImagemDB);
+    $stmt->bindParam(':fornecedor', $fornecedor);
+    $stmt->bindParam(':codigo_barras', $codigoBarras);
 
     if ($stmt->execute()) {
         echo json_encode(['success' => true]);

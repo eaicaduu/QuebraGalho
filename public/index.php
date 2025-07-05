@@ -9,6 +9,12 @@ $stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 ORDER BY id DESC
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+if (!isset($produto['imagem']) || trim($produto['imagem']) === '') {
+    $imagemSrc = "images/default.png";
+} else {
+    $imagemSrc = "../app/models/" . $produto['imagem'];
+}
+
 $stmt = $conn->prepare("SELECT id, nome FROM categorias");
 $stmt->execute();
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);

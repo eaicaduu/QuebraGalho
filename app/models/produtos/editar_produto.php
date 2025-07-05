@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../../config/database.php';
-
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -22,6 +21,8 @@ $preco = floatval($_POST['preco']);
 $descricao = trim($_POST['descricao']);
 $quantidade = intval($_POST['quantidade']);
 $status = ($_POST['status'] == '1' || $_POST['status'] === 1 || $_POST['status'] === 'ativo') ? 1 : 0;
+$fornecedor = trim($_POST['fornecedor'] ?? '');
+$codigoBarras = trim($_POST['codigo_barras'] ?? '');
 
 try {
     $db = new Database();
@@ -42,6 +43,7 @@ try {
             echo json_encode(['success' => false, 'message' => 'Erro ao salvar a imagem']);
             exit;
         }
+
         $caminhoImagemDB = 'uploads/' . $nomeImagem;
         $novaImagem = true;
 
@@ -49,6 +51,7 @@ try {
         $stmtSelect->bindParam(':id', $id, PDO::PARAM_INT);
         $stmtSelect->execute();
         $produtoAntigo = $stmtSelect->fetch(PDO::FETCH_ASSOC);
+
         if ($produtoAntigo && !empty($produtoAntigo['imagem'])) {
             $caminhoImagemAntigo = __DIR__ . '/../' . $produtoAntigo['imagem'];
             if (file_exists($caminhoImagemAntigo)) {
@@ -58,9 +61,15 @@ try {
     }
 
     if ($novaImagem) {
-        $sql = "UPDATE produtos SET nome = :nome, preco = :preco, descricao = :descricao, quantidade = :quantidade, status = :status, imagem = :imagem WHERE id = :id";
+        $sql = "UPDATE produtos 
+                SET nome = :nome, preco = :preco, descricao = :descricao, quantidade = :quantidade, 
+                    status = :status, imagem = :imagem, fornecedor = :fornecedor, codigo_barras = :codigo_barras 
+                WHERE id = :id";
     } else {
-        $sql = "UPDATE produtos SET nome = :nome, preco = :preco, descricao = :descricao, quantidade = :quantidade, status = :status WHERE id = :id";
+        $sql = "UPDATE produtos 
+                SET nome = :nome, preco = :preco, descricao = :descricao, quantidade = :quantidade, 
+                    status = :status, fornecedor = :fornecedor, codigo_barras = :codigo_barras 
+                WHERE id = :id";
     }
 
     $stmt = $conn->prepare($sql);
@@ -69,6 +78,8 @@ try {
     $stmt->bindParam(':descricao', $descricao);
     $stmt->bindParam(':quantidade', $quantidade);
     $stmt->bindParam(':status', $status, PDO::PARAM_BOOL);
+    $stmt->bindParam(':fornecedor', $fornecedor);
+    $stmt->bindParam(':codigo_barras', $codigoBarras);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     if ($novaImagem) {

@@ -5,8 +5,8 @@
                 <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                     <div class="card product-card h-100 shadow-sm border-0">
                         <div class="position-relative">
-                            <img src="../app/models/<?= htmlspecialchars($produto['imagem']) ?>" class="card-img-top"
-                                alt="<?= htmlspecialchars($produto['nome']) ?>" style="object-fit: cover; height: 180px;">
+                            <img src="<?= $imagemSrc ?>" class="card-img-top" alt="<?= htmlspecialchars($produto['nome']) ?>"
+                                style="object-fit: cover; height: 180px;">
 
                             <button
                                 class="btn btn-light position-absolute top-0 end-0 m-2 p-2 rounded-circle shadow-sm btn-favorito"
