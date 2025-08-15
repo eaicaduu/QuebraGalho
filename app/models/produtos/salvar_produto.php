@@ -7,28 +7,24 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$requiredFields = ['nome', 'preco', 'descricao', 'quantidade', 'status'];
+$requiredFields = ['nome', 'preco', 'status'];
 foreach ($requiredFields as $field) {
-    if (!isset($_POST[$field])) {
-        echo json_encode(['success' => false, 'message' => 'Campos obrigatórios ausentes']);
+    if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
+        echo json_encode(['success' => false, 'message' => "Campo obrigatório ausente: $field"]);
         exit;
     }
 }
 
 $nome = trim($_POST['nome']);
 $preco = floatval($_POST['preco']);
-$descricao = trim($_POST['descricao']);
-$quantidade = intval($_POST['quantidade']);
 $status = ($_POST['status'] == '1') ? 1 : 0;
-$fornecedor = trim($_POST['fornecedor'] ?? '');
-$codigoBarras = trim($_POST['codigo_barras'] ?? '');
 
 if (!isset($_FILES['imagem']) || $_FILES['imagem']['error'] !== UPLOAD_ERR_OK) {
     echo json_encode(['success' => false, 'message' => 'Imagem inválida ou não enviada']);
     exit;
 }
 
-$uploadDir = __DIR__ . '/../uploads/';
+$uploadDir = __DIR__ . '../../../uploads/produtos/';
 if (!is_dir($uploadDir)) {
     mkdir($uploadDir, 0755, true);
 }
@@ -42,27 +38,22 @@ if (!move_uploaded_file($_FILES['imagem']['tmp_name'], $caminhoImagem)) {
     exit;
 }
 
-$caminhoImagemDB = 'uploads/' . $nomeImagem;
+$caminhoImagemDB = 'uploads/produtos/' . $nomeImagem;
 
 try {
     $db = new Database();
     $conn = $db->getConnection();
 
-    $stmt = $conn->prepare("INSERT INTO produtos 
-        (nome, preco, descricao, quantidade, status, imagem, fornecedor, codigo_barras) 
-        VALUES (:nome, :preco, :descricao, :quantidade, :status, :imagem, :fornecedor, :codigo_barras)");
+    $stmt = $conn->prepare("INSERT INTO produtos (nome, preco, status, imagem_principal) 
+                            VALUES (:nome, :preco, :status, :imagem_principal)");
 
     $stmt->bindParam(':nome', $nome);
     $stmt->bindParam(':preco', $preco);
-    $stmt->bindParam(':descricao', $descricao);
-    $stmt->bindParam(':quantidade', $quantidade);
     $stmt->bindParam(':status', $status, PDO::PARAM_BOOL);
-    $stmt->bindParam(':imagem', $caminhoImagemDB);
-    $stmt->bindParam(':fornecedor', $fornecedor);
-    $stmt->bindParam(':codigo_barras', $codigoBarras);
+    $stmt->bindParam(':imagem_principal', $caminhoImagemDB);
 
     if ($stmt->execute()) {
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'message' => 'Produto adicionado com sucesso!']);
     } else {
         echo json_encode(['success' => false, 'message' => 'Erro ao inserir no banco de dados']);
     }

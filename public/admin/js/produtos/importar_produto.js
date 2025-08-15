@@ -1,31 +1,44 @@
-document.addEventListener("DOMContentLoaded", () => {
+const btnImportar = document.getElementById("btnImportar");
+const inputImportar = document.getElementById("inputImportar");
 
-  document.getElementById("btnImportar").addEventListener("click", () => {
-    document.getElementById("inputImportar").click();
-  });
+btnImportar.addEventListener("click", () => inputImportar.click());
 
-  document
-    .getElementById("inputImportar")
-    .addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
+inputImportar.addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
 
-      const formData = new FormData();
-      formData.append("arquivo", file);
+  const originalText = btnImportar.innerHTML;
+  btnImportar.disabled = true;
+  btnImportar.innerHTML = `
+  <span class="d-flex align-items-center justify-content-center w-100">
+    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+    Importando...
+  </span>
+`;
 
-      fetch("../../app/models/produtos/importar_produtos.php", {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.success) {
-            alert("Importação realizada com sucesso!");
-          } else {
-            alert("Erro: " + data.message);
-          }
-        })
-        .catch(() => alert("Erro ao importar arquivo."));
+  const formData = new FormData();
+  formData.append("arquivo", file);
+
+  fetch("../../../app/models/produtos/importar_produtos.php", {
+    method: "POST",
+    body: formData,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        Swal.fire(
+          "Importação Finalizada",
+          `${data.importados} produtos importados com sucesso!`,
+          "success"
+        );
+      } else {
+        Swal.fire("Erro", data.message || "Erro ao importar produtos.", "error");
+      }
+    })
+    .catch(() => Swal.fire("Erro", "Falha na requisição.", "error"))
+    .finally(() => {
+      btnImportar.disabled = false;
+      btnImportar.innerHTML = originalText;
+      inputImportar.value = "";
     });
-
 });

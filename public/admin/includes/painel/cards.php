@@ -1,68 +1,73 @@
-<div class="d-flex justify-content-center align-items-center">
-    <div class="container">
-        <div class="row justify-content-center g-4">
+<div class="container-fluid">
+    <div class="row">
 
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card text-center shadow-sm border-0">
-                    <div class="card-body">
-                        <i class="bi bi-box-seam" style="font-size: 3rem; color: #0d6efd;"></i>
-                        <h5 class="card-title mt-3">Produtos</h5>
-                        <a href="produtos.php" class="btn btn-primary mt-2">Gerenciar</a>
-                    </div>
-                </div>
+        <div class="col-12 col-lg-3 d-none d-lg-block">
+            <div class="list-group shadow-sm">
+                <a href="produtos/produtos_painel.php"
+                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
+                    <i class="bi bi-box-seam text-primary fs-4"></i>
+                    <span>Produtos</span>
+                </a>
+                <a href="pedidos/pedidos.php"
+                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
+                    <i class="bi bi-cart-check text-success fs-4"></i> Pedidos
+                </a>
+                <a href="usuarios/painel_usuarios.php"
+                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
+                    <i class="bi bi-people text-danger fs-4"></i> Usuários
+                </a>
+                <a href="relatorios.php"
+                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
+                    <i class="bi bi-bar-chart-line text-secondary fs-4"></i> Relatórios
+                </a>
+                <a href="marketplace/marketplace_painel.php"
+                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
+                    <i class="bi bi-shop text-info fs-4"></i> Marketplace
+                </a>
+                <a href="avaliacoes.php"
+                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
+                    <i class="bi bi-star-half text-warning fs-4"></i> Avaliações
+                </a>
+                <a href="configuracoes.php"
+                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
+                    <i class="bi bi-gear text-dark fs-4"></i> Configurações
+                </a>
             </div>
-
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card text-center shadow-sm border-0">
-                    <div class="card-body">
-                        <i class="bi bi-cart-check" style="font-size: 3rem; color: #198754;"></i>
-                        <h5 class="card-title mt-3">Pedidos</h5>
-                        <a href="pedidos.php" class="btn btn-success mt-2">Gerenciar</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card text-center shadow-sm border-0">
-                    <div class="card-body">
-                        <i class="bi bi-people" style="font-size: 3rem; color: #dc3545;"></i>
-                        <h5 class="card-title mt-3">Usuários</h5>
-                        <a href="usuarios.php" class="btn btn-danger mt-2">Gerenciar</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card text-center shadow-sm border-0">
-                    <div class="card-body">
-                        <i class="bi bi-menu-up text-dark" style="font-size: 3rem;"></i>
-                        <h5 class="card-title mt-3">Categorias</h5>
-                        <a href="categorias.php" class="btn btn-dark mt-2">Gerenciar</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card text-center shadow-sm border-0">
-                    <div class="card-body">
-                        <i class="bi bi-bar-chart-line text-dark" style="font-size: 3rem;"></i>
-                        <h5 class="card-title mt-3">Relatórios</h5>
-                        <a href="relatorios.php" class="btn btn-dark mt-2">Visualizar</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card text-center shadow-sm border-0">
-                    <div class="card-body">
-                        <i class="bi bi-gear text-dark" style="font-size: 3rem;"></i>
-                        <h5 class="card-title mt-3">Configurações</h5>
-                        <a href="configuracoes.php" class="btn btn-dark mt-2">Acessar</a>
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <div class="d-lg-none" style="padding-left: 0; padding-right: 0;">
+            <div class="overflow-auto"
+                style="white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem;">
+                <a href="produtos/produtos_painel.php" class="btn btn-secondary me-2 mb-2 ms-2"
+                    style="display: inline-block; white-space: normal; width: 150px;">
+                    <i class="bi bi-box-seam fs-4"></i><br>Produtos
+                </a>
+                <a href="pedidos/pedidos.php" class="btn btn-secondary me-2 mb-2"
+                    style="display: inline-block; white-space: normal; width: 150px;">
+                    <i class="bi bi-cart-check fs-4"></i><br>Pedidos
+                </a>
+                <a href="usuarios/painel_usuarios.php" class="btn btn-secondary me-2 mb-2"
+                    style="display: inline-block; white-space: normal; width: 150px;">
+                    <i class="bi bi-people fs-4"></i><br>Usuários
+                </a>
+                <a href="relatorios.php" class="btn btn-secondary me-2 mb-2"
+                    style="display: inline-block; white-space: normal; width: 150px;">
+                    <i class="bi bi-bar-chart-line fs-4"></i><br>Relatórios
+                </a>
+                <a href="marketplace/marketplace_painel.php" class="btn btn-secondary me-2 mb-2"
+                    style="display: inline-block; white-space: normal; width: 150px;">
+                    <i class="bi bi-shop fs-4"></i><br>Marketplace
+                </a>
+                <a href="avaliacoes.php" class="btn btn-secondary me-2 mb-2"
+                    style="display: inline-block; white-space: normal; width: 150px;">
+                    <i class="bi bi-star-half fs-4"></i><br>Avaliações
+                </a>
+                <a href="configuracoes.php" class="btn btn-secondary me-2 mb-2"
+                    style="display: inline-block; white-space: normal; width: 150px;">
+                    <i class="bi bi-gear fs-4"></i><br>Configurações
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>

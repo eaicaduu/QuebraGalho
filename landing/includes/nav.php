@@ -1,5 +1,9 @@
 <nav class="navbar navbar-expand-lg bg-transparent">
   <div class="container">
+      <button class="navbar-toggler invisible" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <!-- Logo central (em telas pequenas fica no topo) -->
     <a class="navbar-brand mx-auto d-lg-none" href="#">
       <img src="images/logo.png" height="50" class="pe-none" />

@@ -1,0 +1,11 @@
+
+#clearSearch {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  #clearSearch.show {
+    opacity: 1;
+    visibility: visible;
+  }

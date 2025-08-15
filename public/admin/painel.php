@@ -1,10 +1,11 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['admin'])) {
+if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2, 3])) {
     header("Location: ../index.php");
     exit();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -13,11 +14,11 @@ if (!isset($_SESSION['admin'])) {
 <head>
     <meta charset="UTF-8">
     <title>Painel Administrativo - Quebra Galho</title>
-    <link rel="icon" href="../images/logo.png">
-    <link rel="stylesheet" href="../css/painel.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" href="../images/logo.png">
+    <link href="../bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -26,9 +27,7 @@ if (!isset($_SESSION['admin'])) {
 
     <?php include 'includes/painel/cards.php'; ?>
 
-    <?php include 'includes/painel/footer.php'; ?>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 
 </body>
 

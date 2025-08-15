@@ -12,10 +12,10 @@ try {
     $db = new Database();
     $conn = $db->getConnection();
 
-    $stmt = $conn->prepare("UPDATE usuarios SET nome = :nome, email = :email, perm_admin = :perm_admin WHERE id = :id");
+    $stmt = $conn->prepare("UPDATE usuarios SET nome = :nome, email = :email, tipo_usuario = :tipo_usuario WHERE id = :id");
     $stmt->bindParam(':nome', $data['nome']);
     $stmt->bindParam(':email', $data['email']);
-    $stmt->bindParam(':perm_admin', $data['perm_admin']);
+    $stmt->bindParam(':tipo_usuario', $data['tipo']);
     $stmt->bindParam(':id', $data['id']);
     $stmt->execute();
 

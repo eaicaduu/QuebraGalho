@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../app/config/database.php';
 
-if (!isset($_SESSION['usuario_cpf'])) {
+if (!isset($_SESSION['usuario_documento'])) {
     header("Location: login.php");
     exit();
 }
@@ -10,10 +10,10 @@ if (!isset($_SESSION['usuario_cpf'])) {
 $database = new Database();
 $db = $database->getConnection();
 
-$cpf = $_SESSION['usuario_cpf'];
+$documento = $_SESSION['usuario_documento'];
 
-$stmt = $db->prepare("SELECT nome, cpf, email, perm_admin FROM usuarios WHERE cpf = :cpf");
-$stmt->bindParam(':cpf', $cpf);
+$stmt = $db->prepare("SELECT * FROM usuarios WHERE documento = :documento");
+$stmt->bindParam(':documento', $documento);
 $stmt->execute();
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -23,34 +23,40 @@ if (!$user) {
     header("Location: login.php");
     exit();
 }
+
+$paginaAtual = 'conta';
+$basePath = 'account/';
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <title>Minha Conta - Ferragem</title>
-    <link rel="stylesheet" href="css/account.css">
-    <link rel="icon" href="images/logo.png">
+    <title>Minha Conta - Quebra Galho</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="icon" href="images/logo.png">
+    <link href="bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <?php include 'includes/account/nav.php'; ?>
-    <?php include 'includes/account/card.php'; ?>
+    <?php include 'account/includes/account/nav.php'; ?>
+
+    <?php include 'account/includes/account/card.php'; ?>
 
     <script>
-    const userData = {
-        nome: "<?php echo addslashes($user['nome']); ?>",
-        email: "<?php echo addslashes($user['email']); ?>"
-    };
+        const userData = {
+            nome: "<?php echo addslashes($user['nome']); ?>",
+            email: "<?php echo addslashes($user['email']); ?>"
+        };
     </script>
+    <script src="js/conta/account.js"></script>
+    <script src="bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/account.js"></script>
 </body>
 
 </html>

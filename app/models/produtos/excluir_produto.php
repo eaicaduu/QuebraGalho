@@ -19,13 +19,13 @@ try {
     $db = new Database();
     $conn = $db->getConnection();
 
-    $stmtSelect = $conn->prepare("SELECT imagem FROM produtos WHERE id = :id");
+    $stmtSelect = $conn->prepare("SELECT * FROM produtos WHERE id = :id");
     $stmtSelect->bindParam(':id', $id, PDO::PARAM_INT);
     $stmtSelect->execute();
     $produto = $stmtSelect->fetch(PDO::FETCH_ASSOC);
 
-    if ($produto && !empty($produto['imagem'])) {
-        $caminhoImagem = __DIR__ . '/../' . $produto['imagem'];
+    if ($produto && !empty($produto['imagem_principal'])) {
+        $caminhoImagem = "../../../app/" . $produto['imagem_principal'];
         if (file_exists($caminhoImagem)) {
             @unlink($caminhoImagem);
         }
