@@ -1,21 +1,20 @@
-<nav class="navbar bg-transparent d-block d-xl-none">
+<nav class="navbar bg-white d-block d-xl-none">
   <div class="container d-flex justify-content-between align-items-center">
-    <img src="images/logo.png" height="50" class="pe-none user-select-none">
 
-    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
-      <li class="nav-item mx-2">
-        <a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFavoritos">
-          <i class="bi bi-heart fs-4"></i>
-        </a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link js-account" id="account-sm">
-          <i class="bi bi-person-circle fs-4"></i>
-        </a>
-      </li>
+    <ul class="navbar-nav d-flex flex-row align-items-center">
       <li class="nav-item mx-2">
         <a class="nav-link js-link-carrinho" id="linkCarrinho-sm">
-          <i class="bi bi-cart3 fs-4"></i>
+          <i class="bi bi-cart3 text-black" style="font-size: 2rem;"></i>
+        </a>
+      </li>
+    </ul>
+
+    <img src="images/logo.png" height="50" class="pe-none user-select-none">
+
+    <ul class="navbar-nav d-flex flex-row align-items-center">
+      <li class="nav-item mx-2">
+        <a class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
+          <i class="bi bi-list text-black" style="font-size: 2.3rem;"></i>
         </a>
       </li>
     </ul>

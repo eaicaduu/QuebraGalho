@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   const btnAddProduct = document.getElementById("addproduct");
-  const editSiteProduct = document.getElementById("addproduct");
 
   btnAddProduct?.addEventListener("click", function (e) {
     e.preventDefault();
@@ -73,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("status", status);
         formData.append("imagem", imagem);
 
-        fetch("../../../app/models/produtos/salvar_produto.php", {
+        fetch("../../../app/models/produtos/salvar_produtos.php", {
           method: "POST",
           body: formData,
         })
@@ -99,4 +98,105 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  document.getElementById("produtos-body").addEventListener("click", async (e) => {
+    const btn = e.target.closest(".salvar-produto");
+    if (!btn) return;
+
+    const card = btn.closest(".produto-item");
+    const produtoId = card.dataset.produtoId;
+    const nome = card.querySelector(".nome-produto").value;
+    const status = card.querySelector(".status-produto").value;
+
+    try {
+      const formData = new FormData();
+      formData.append("id", produtoId);
+      formData.append("nome", nome);
+      formData.append("status", status);
+
+      const res = await fetch("../../../app/models/produtos/edit_produtos.php", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        Swal.fire({
+          title: "Salvo!",
+          text: "A alteração foi salva.",
+          icon: "success",
+          confirmButtonColor: "#28a745"
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro',
+          text: data.error || 'Erro ao atualizar produto.',
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro',
+        text: 'Erro na requisição.',
+      });
+    }
+  });
+
+  document.getElementById("produtos-body").addEventListener("click", async (e) => {
+    const btn = e.target.closest(".alterar-imagem");
+    if (!btn) return;
+
+    const card = btn.closest(".produto-item");
+    const produtoId = card.dataset.produtoId;
+
+    const inputFile = document.createElement("input");
+    inputFile.type = "file";
+    inputFile.accept = "image/*";
+    inputFile.click();
+
+    inputFile.addEventListener("change", async () => {
+      const file = inputFile.files[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("id", produtoId);
+      formData.append("imagem", file);
+
+      try {
+        const res = await fetch("../../../app/models/produtos/edit_produtos.php", {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          card.querySelector(".produto-imagem").src = data.novaImagemUrl + "?t=" + new Date().getTime();
+
+          Swal.fire({
+            title: "Sucesso!",
+            text: "A imagem foi alterada.",
+            icon: "success",
+            confirmButtonColor: "#28a745"
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro',
+            text: data.error || 'Erro ao atualizar imagem.'
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro',
+          text: 'Erro na requisição.'
+        });
+      }
+    });
+  });
+
+
 });

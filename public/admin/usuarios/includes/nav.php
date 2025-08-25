@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-transparent mb-4">
+<nav class="navbar navbar-expand-lg bg-transparent mb-2">
     <div class="container d-flex align-items-center justify-content-between">
 
         <button class="btn btn-link text-decoration-none text-dark p-0" onclick="history.back()">

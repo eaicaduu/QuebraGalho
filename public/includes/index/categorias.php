@@ -1,4 +1,4 @@
-<nav class="nav justify-content-center mb-2">
+<nav class="nav justify-content-center mb-2 d-none d-xl-flex">
   <?php if (!empty($categorias)): ?>
     <?php foreach ($categorias as $categoria): ?>
       <a 

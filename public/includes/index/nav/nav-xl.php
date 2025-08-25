@@ -1,4 +1,4 @@
-<nav class="navbar bg-transparent d-none d-xl-flex">
+<nav class="navbar bg-white d-none d-xl-flex">
   <div class="container d-flex justify-content-between align-items-center">
     <img src="images/logo.png" height="50" class="pe-none user-select-none">
 

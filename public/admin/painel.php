@@ -23,10 +23,11 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
 <body>
 
-    <?php include 'includes/painel/nav.php'; ?>
+    <?php include 'painel/nav.php'; ?>
 
-    <?php include 'includes/painel/cards.php'; ?>
+    <?php include 'painel/cards.php'; ?>
 
+    <script src="js/painel/notificacoes.js"></script>
     <script src="../bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 
 </body>

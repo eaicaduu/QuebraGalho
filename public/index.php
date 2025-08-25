@@ -13,6 +13,9 @@ $stmt = $conn->prepare("SELECT * FROM categorias");
 $stmt->execute();
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$stmt = $conn->query("SELECT imagem FROM carousel ORDER BY id DESC");
+$imagens = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 $totalCarrinho = 0;
 $carrinho = [];
 
@@ -46,16 +49,19 @@ if (isset($_SESSION['usuario_id'])) {
 <style>
 </style>
 
-<body class="user-select-none">
+<body class="user-select-none bg-warning">
 
-    <?php include 'includes/index/nav/nav-sm.php'; ?>
     <?php include 'includes/index/nav/nav-xl.php'; ?>
+    <?php include 'includes/index/nav/menu-sm.php'; ?>
+    <?php include 'includes/index/nav/nav-sm.php'; ?>
 
     <?php include 'includes/index/favoritos.php'; ?>
 
     <?php include 'includes/produto/carrinho.php'; ?>
 
     <?php include 'includes/index/categorias.php'; ?>
+
+    <?php include 'includes/index/carousel.php'; ?>
 
     <?php include 'includes/index/body.php'; ?>
 

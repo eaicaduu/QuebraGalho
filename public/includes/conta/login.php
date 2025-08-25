@@ -9,7 +9,7 @@
 
         <form id="loginForm">
 
-            <input maxlength="18" placeholder="CPF ou CNPJ" name="documento" id="documento" class="form-control mb-3"
+            <input maxlength="18" placeholder="CPF ou CNPJ" name="documento" id="documento"  class="form-control mb-3"
                 autofocus
                 value="<?php echo isset($_COOKIE['remember_cpf']) ? htmlspecialchars($_COOKIE['remember_cpf']) : ''; ?>">
 

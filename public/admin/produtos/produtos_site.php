@@ -6,8 +6,6 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
     exit();
 }
 
-
-
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +27,9 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
     <?php include 'includes/site/produtos.php'; ?>
 
+    <script src="../js/produtos/salvar_produto.js"></script>
     <script src="../js/produtos/listar_produto.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 </body>
 

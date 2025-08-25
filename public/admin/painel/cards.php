@@ -8,15 +8,15 @@
                     <i class="bi bi-box-seam text-primary fs-4"></i>
                     <span>Produtos</span>
                 </a>
-                <a href="pedidos/pedidos.php"
+                <a href="pedidos/pedidos_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
                     <i class="bi bi-cart-check text-success fs-4"></i> Pedidos
                 </a>
-                <a href="usuarios/painel_usuarios.php"
+                <a href="usuarios/usuarios_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
                     <i class="bi bi-people text-danger fs-4"></i> Usuários
                 </a>
-                <a href="relatorios.php"
+                <a href="relatorios/relatorios_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
                     <i class="bi bi-bar-chart-line text-secondary fs-4"></i> Relatórios
                 </a>
@@ -24,11 +24,11 @@
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
                     <i class="bi bi-shop text-info fs-4"></i> Marketplace
                 </a>
-                <a href="avaliacoes.php"
+                <a href="avaliacoes/avaliacoes_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
                     <i class="bi bi-star-half text-warning fs-4"></i> Avaliações
                 </a>
-                <a href="configuracoes.php"
+                <a href="configuracoes/configuracoes_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
                     <i class="bi bi-gear text-dark fs-4"></i> Configurações
                 </a>
@@ -42,15 +42,15 @@
                     style="display: inline-block; white-space: normal; width: 150px;">
                     <i class="bi bi-box-seam fs-4"></i><br>Produtos
                 </a>
-                <a href="pedidos/pedidos.php" class="btn btn-secondary me-2 mb-2"
+                <a href="pedidos/pedidos_painel.php" class="btn btn-secondary me-2 mb-2"
                     style="display: inline-block; white-space: normal; width: 150px;">
                     <i class="bi bi-cart-check fs-4"></i><br>Pedidos
                 </a>
-                <a href="usuarios/painel_usuarios.php" class="btn btn-secondary me-2 mb-2"
+                <a href="usuarios/usuarios_painel.php" class="btn btn-secondary me-2 mb-2"
                     style="display: inline-block; white-space: normal; width: 150px;">
                     <i class="bi bi-people fs-4"></i><br>Usuários
                 </a>
-                <a href="relatorios.php" class="btn btn-secondary me-2 mb-2"
+                <a href="relatorios/relatorios_painel.php" class="btn btn-secondary me-2 mb-2"
                     style="display: inline-block; white-space: normal; width: 150px;">
                     <i class="bi bi-bar-chart-line fs-4"></i><br>Relatórios
                 </a>
@@ -58,16 +58,18 @@
                     style="display: inline-block; white-space: normal; width: 150px;">
                     <i class="bi bi-shop fs-4"></i><br>Marketplace
                 </a>
-                <a href="avaliacoes.php" class="btn btn-secondary me-2 mb-2"
+                <a href="avaliacoes/avaliacoes_painel.php" class="btn btn-secondary me-2 mb-2"
                     style="display: inline-block; white-space: normal; width: 150px;">
                     <i class="bi bi-star-half fs-4"></i><br>Avaliações
                 </a>
-                <a href="configuracoes.php" class="btn btn-secondary me-2 mb-2"
+                <a href="configuracoes/configuracoes_painel.php" class="btn btn-secondary me-2 mb-2"
                     style="display: inline-block; white-space: normal; width: 150px;">
                     <i class="bi bi-gear fs-4"></i><br>Configurações
                 </a>
             </div>
         </div>
+
+        <?php include 'painel/notificacoes.php'; ?>
 
     </div>
 </div>

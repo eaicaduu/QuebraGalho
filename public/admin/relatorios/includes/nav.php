@@ -7,11 +7,11 @@
 
         <div class="d-flex justify-content-center">
             <span class="navbar-brand d-flex align-items-center">
-                <i class="bi bi-cart-check" style="font-size: 1.8rem;"></i>
+                <i class="bi bi-bar-chart-line" style="font-size: 1.8rem;"></i>
                 <span class="ms-2 text-dark">Relatórios</span>
             </span>
         </div>
 
-        <img src="../images/logo.png" class="pe-none" height="50">
+        <img src="../../images/logo.png" class="pe-none" height="50">
     </div>
 </nav>
