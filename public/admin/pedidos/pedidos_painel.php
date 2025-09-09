@@ -24,9 +24,12 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
     <?php include 'includes/nav.php'; ?>
 
-    <div id="pedidosContainer" class=" mt-1"></div>
+    <?php include 'includes/pedidos.php'; ?>
 
-    <script src="js/pedidos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/pedidos/detalhes_pedidos.js"></script>
+    <script src="../js/pedidos/imprimir_etiquetas.js"></script>
+    <script src="../js/pedidos/listar_pedidos.js"></script>
     <script src="../../bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 
 </body>

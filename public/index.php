@@ -5,6 +5,13 @@ session_start();
 $db = new Database();
 $conn = $db->getConnection();
 
+$stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
+$config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
+
+$logo = !empty($config['logo'])
+    ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
+    : 'images/default.png';
+
 $stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 ORDER BY id ASC LIMIT 12");
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -21,12 +28,12 @@ $carrinho = [];
 
 if (isset($_SESSION['usuario_id'])) {
 
-    $stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :uid");
-    $stmt->bindValue(':uid', $_SESSION['usuario_id']);
-    $stmt->execute();
-    $carrinho = $stmt->fetchAll();
+$stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :uid");
+$stmt->bindValue(':uid', $_SESSION['usuario_id']);
+$stmt->execute();
+$carrinho = $stmt->fetchAll();
 
-    $totalCarrinho = count($carrinho);
+$totalCarrinho = count($carrinho);
 }
 
 ?>
@@ -36,12 +43,13 @@ if (isset($_SESSION['usuario_id'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Quebra Galho Ferragem - Loja Online</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="images/logo.png">
-    <link href="bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
+    <title><?= htmlspecialchars($config['nome_empresa'] ?? 'Minha Empresa') ?></title>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="<?= $logo ?>">
+<link href="bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+<link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
 
 </head>
 
@@ -63,7 +71,7 @@ if (isset($_SESSION['usuario_id'])) {
 
     <?php include 'includes/index/carousel.php'; ?>
 
-    <?php include 'includes/index/body.php'; ?>
+    <?php include 'includes/index/produtos.php'; ?>
 
     <?php include 'includes/index/footer.php'; ?>
 
@@ -72,6 +80,7 @@ if (isset($_SESSION['usuario_id'])) {
         const totalCarrinho = <?= $totalCarrinho ?>;
     </script>
     <script src="js/conta/link.js"></script>
+    <script src="js/categorias/categorias.js"></script>
     <script src="js/carrinho/excluir_carrinho.js"></script>
     <script src="js/carrinho/buscar_carrinho.js"></script>
     <script src="js/favoritos/salvar_favoritos.js"></script>

@@ -19,7 +19,7 @@
       </li>
     </ul>
 
-    <div class="w-100 mt-2">
+    <div class="w-100 my-2">
       <form action="buscar.php" method="GET">
         <div class="input-group shadow-sm rounded-5 overflow-hidden w-100">
           <input type="text" name="search" style="outline: none; box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0);"

@@ -5,32 +5,31 @@
             <div class="list-group shadow-sm">
                 <a href="produtos/produtos_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-box-seam text-primary fs-4"></i>
-                    <span>Produtos</span>
+                    <i class="bi bi-box-seam fs-4"></i> Produtos
                 </a>
                 <a href="pedidos/pedidos_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-cart-check text-success fs-4"></i> Pedidos
+                    <i class="bi bi-cart-check fs-4"></i> Pedidos
                 </a>
                 <a href="usuarios/usuarios_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-people text-danger fs-4"></i> Usuários
+                    <i class="bi bi-people fs-4"></i> Usuários
                 </a>
                 <a href="relatorios/relatorios_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-bar-chart-line text-secondary fs-4"></i> Relatórios
+                    <i class="bi bi-bar-chart-line fs-4"></i> Relatórios
                 </a>
                 <a href="marketplace/marketplace_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-shop text-info fs-4"></i> Marketplace
+                    <i class="bi bi-shop fs-4"></i> Marketplace
                 </a>
                 <a href="avaliacoes/avaliacoes_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-star-half text-warning fs-4"></i> Avaliações
+                    <i class="bi bi-star-half fs-4"></i> Avaliações
                 </a>
                 <a href="configuracoes/configuracoes_painel.php"
                     class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-gear text-dark fs-4"></i> Configurações
+                    <i class="bi bi-gear fs-4"></i> Configurações
                 </a>
             </div>
         </div>

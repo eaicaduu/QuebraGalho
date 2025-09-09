@@ -36,11 +36,13 @@ table th {
   display: none;
 }
 
-.product-card img {
-  object-fit: cover;
-  height: 200px;
+.zoom-img {
+    transition: transform 0.3s ease;
 }
 
+.zoom-img:hover {
+    transform: scale(1.1);
+}
 .footer {
   background-color: #333;
   color: white;
@@ -73,6 +75,10 @@ table th {
   opacity: 1 !important;
 }
 
+.salvar-produto {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 @media (min-width: 990px) {
   .nav-item.dropdown:hover .dropdown-menu {
     display: block;
@@ -91,6 +97,20 @@ table th {
   100% {
     transform: scale(1);
   }
+}
+
+.nav-link .underline {
+  height: 3px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+
+.nav-link:hover .underline {
+  width: 100%;
 }
 
 @media (min-width: 768px) {

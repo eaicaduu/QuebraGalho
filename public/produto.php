@@ -38,7 +38,7 @@ if (isset($_SESSION['usuario_id'])) {
 
 $imagemSrc = (!isset($produtos['imagem_principal']) || trim($produtos['imagem_principal']) === '')
     ? "images/default.png"
-    : "../app/" . $produtos['imagem_principal'];
+    : "../app/uploads/produtos/" . $produtos['imagem_principal'];
 ?>
 
 
@@ -58,6 +58,7 @@ $imagemSrc = (!isset($produtos['imagem_principal']) || trim($produtos['imagem_pr
 <body>
 
     <?php include 'includes/index/nav/nav-sm.php'; ?>
+    <?php include 'includes/index/nav/menu-sm.php'; ?>
     <?php include 'includes/index/nav/nav-xl.php'; ?>
 
     <?php include 'includes/index/favoritos.php'; ?>

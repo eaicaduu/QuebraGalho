@@ -22,10 +22,18 @@
         <div class="col-md-6">
             <h1 class="mb-2"><?= htmlspecialchars($produtos['nome']) ?></h1>
             <div class="d-flex justify-content-between align-items-center">
-                <div class="text-warning mb-2">
-                    <?php for ($i = 0; $i < 5; $i++): ?>
-                        <i class="bi bi-star-fill me-1"></i>
+                <div class="text-warning mb-2" style="font-size: 1.1rem;">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <i class="bi <?=
+                            ($produtos['avaliacao_media'] >= $i) ? 'bi-star-fill' :
+                            ($produtos['avaliacao_media'] >= $i - 0.5 ? 'bi-star-half' : 'bi-star')
+                            ?> me-1"></i>
                     <?php endfor; ?>
+                    <?php if (!empty($produtos['quantidade_avaliacoes']) && $produtos['quantidade_avaliacoes'] > 0): ?>
+                        <span class="text-muted ms-1" style="font-size: 0.9rem;">
+                            (<?= intval($produtos['quantidade_avaliacoes']) ?> avaliações)
+                        </span>
+                    <?php endif; ?>
                 </div>
                 <div>
                     <strong>Marca:</strong> <?= htmlspecialchars($produtos['fornecedor_id']) ?>
@@ -36,7 +44,26 @@
             </div>
 
 
-            <h1 class="text-success fw-bold mb-3">R$ <?= number_format($produtos['preco'], 2, ',', '.') ?></h1>
+            <div class="mb-3">
+                <?php if (!empty($produtos['promocao']) && $produtos['promocao'] == 1 && !empty($produtos['preco_promocional'])): ?>
+                    <small class="text-muted d-block fs-5" style="text-decoration: line-through;">
+                        R$ <?= number_format($produtos['preco'], 2, ',', '.') ?>
+                    </small>
+                    <h1 class="text-danger fw-bold fs-1">
+                        R$ <?= number_format($produtos['preco_promocional'], 2, ',', '.') ?>
+                    </h1>
+                    <?php if (!empty($produtos['desconto_percentual'])): ?>
+                        <span class="badge bg-danger fs-6">
+                            -<?= floatval($produtos['desconto_percentual']) ?>% OFF
+                        </span>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <h1 class="text-success fw-bold fs-1">
+                        R$ <?= number_format($produtos['preco'], 2, ',', '.') ?>
+                    </h1>
+                <?php endif; ?>
+            </div>
+
             <p><strong>Produto
                     <?= htmlspecialchars($produtos['status'] == 1 ? 'Disponível' : 'Indisponível') ?>
             </p></strong>

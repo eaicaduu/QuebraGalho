@@ -29,7 +29,7 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <head>
     <meta charset="UTF-8">
-    <title>Produos Categorias - Quebra Galho</title>
+    <title>Produtos Categorias - Quebra Galho</title>
     <link rel="icon" href="../../images/logo.png">
     <link rel="stylesheet" href="../../css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,9 +41,10 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php include 'includes/categorias/nav.php'; ?>
 
-    <?php include 'includes/categorias/body.php'; ?>
+    <?php include 'includes/categorias/categorias.php'; ?>
 
-    <script src="js/categorias.js"></script>
+    <script src="../js/produtos/categorias/listar_produtos_categorias.js"></script>
+    <script src="../js/produtos/categorias/adicionar_produtos_categorias.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

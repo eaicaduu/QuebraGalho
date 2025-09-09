@@ -27,11 +27,11 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
     <?php include 'includes/painel/cards.php'; ?>
 
-    <script src="../js/produtos/pesquisar_produto.js"></script>
-    <script src="../js/produtos/listar_produto.js"></script>
-    <script src="../js/produtos/excluir_produto.js"></script>
-    <script src="../js/produtos/importar_produto.js"></script>
-    <script src="../js/produtos/salvar_produto.js"></script>
+    <script src="../js/produtos/painel/listar_produto_painel.js"></script>
+    <script src="../js/produtos/painel/pesquisar_produto_painel.js"></script>
+    <script src="../js/produtos/painel/excluir_produto_painel.js"></script>
+    <script src="../js/produtos/painel/importar_produto_painel.js"></script>
+    <script src="../js/produtos/painel/salvar_produto_painel.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 </body>

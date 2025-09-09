@@ -42,7 +42,7 @@ $basePath = 'account/';
     <link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="user-select-none">
 
     <?php include 'account/includes/account/nav.php'; ?>
 

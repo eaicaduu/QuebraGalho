@@ -24,7 +24,7 @@
 
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title"><?= htmlspecialchars($produto['nome']) ?></h5>
-                            <p class="card-text small"><?= htmlspecialchars($produto['descricao']) ?></p>
+                            <p class="card-text small"><?= htmlspecialchars($produto['desc_curta']) ?></p>
                             <p class="text-success fw-bold fs-5">
                                 R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                             </p>
