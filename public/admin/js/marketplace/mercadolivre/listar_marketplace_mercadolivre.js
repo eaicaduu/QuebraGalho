@@ -1,30 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const checkboxMercadoLivre = document.getElementById('switchMercadoLivre');
     const container = document.getElementById('produtos');
     const totalCadastrados = document.getElementById('totalCadastrados');
 
-    const marcado = localStorage.getItem('mercadoLivreChecked') === 'true';
-    checkboxMercadoLivre.checked = marcado;
+    const produtosMercadoLivre = localStorage.getItem('mercadoLivreChecked') === 'true';
 
-    if (marcado) {
+    if (produtosMercadoLivre) {
         container.classList.remove('d-none');
         carregarProdutos();
     } else {
         container.classList.add('d-none');
         container.innerHTML = '';
     }
-
-    checkboxMercadoLivre.addEventListener('change', function () {
-        localStorage.setItem('mercadoLivreChecked', this.checked);
-
-        if (this.checked) {
-            container.classList.remove('d-none');
-            carregarProdutos();
-        } else {
-            container.classList.add('d-none');
-            container.innerHTML = '';
-        }
-    });
 
     function carregarProdutos() {
         container.innerHTML = '<div class="text-center my-4"><div class="spinner-border text-warning" role="status"></div><p>Carregando produtos...</p></div>';

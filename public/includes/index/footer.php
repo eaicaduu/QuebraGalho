@@ -1,8 +1,8 @@
-<footer class="footer bg-warning text-dark pt-5 pb-3 mt-4">
+<footer class="footer bg-transparent text-dark pt-5 pb-3 mt-4">
     <div class="container">
         <div class="row gy-4 align-items-start">
             <div class="col-md-6 text-center text-md-start">
-                <img src="images/logo.png" alt="Logo Quebra Galho Ferragem" style="max-height: 60px;"
+                <img src="<?= $logo ?>" alt="Logo Quebra Galho Ferragem" style="max-height: 60px;"
                     class="mb-3 pe-none">
                 <h5 class="mb-2">Quebra Galho Ferragem</h5>
                 <p>Fornecendo qualidade e confiança em materiais de construção, ferramentas e muito mais para sua obra

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-transparent mb-2">
     <div class="container d-flex align-items-center justify-content-between">
 
-        <button class="btn btn-link text-decoration-none text-dark p-0" onclick="window.location.href = '../painel.php'">
+        <button class="btn btn-link text-decoration-none text-dark p-0" onclick="window.location.href = '../admin_painel.php'">
             <i class="bi bi-arrow-left-circle" style="font-size: 1.8rem;"></i>
         </button>
 

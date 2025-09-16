@@ -72,7 +72,7 @@
                         </button>
 
                         <?php if (isset($user['tipo_usuario']) && in_array($user['tipo_usuario'], [2, 3])): ?>
-                            <a href="admin/painel.php" class="btn btn-dark">
+                            <a href="admin/admin_painel.php" class="btn btn-dark">
                                 <i class="bi bi-tools me-1"></i> Painel administrador
                             </a>
                         <?php endif; ?>

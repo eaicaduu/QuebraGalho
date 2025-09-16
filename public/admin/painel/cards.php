@@ -68,7 +68,5 @@
             </div>
         </div>
 
-        <?php include 'painel/notificacoes.php'; ?>
-
     </div>
 </div>

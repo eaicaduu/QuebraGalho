@@ -12,6 +12,6 @@
             </span>
         </div>
 
-        <img src="../../images/logo.png" class="pe-none" height="50">
+        <img src="<?= $logo ?>" class="pe-none" height="50">
     </div>
 </nav>

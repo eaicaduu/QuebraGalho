@@ -9,7 +9,7 @@
       </li>
     </ul>
 
-    <img src="images/logo.png" height="50" class="pe-none user-select-none">
+    <img src="<?= $logo ?>" height="50" class="pe-none user-select-none">
 
     <ul class="navbar-nav d-flex flex-row align-items-center">
       <li class="nav-item mx-2">

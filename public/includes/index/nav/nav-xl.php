@@ -1,6 +1,6 @@
 <nav class="navbar bg-white d-none d-xl-flex">
   <div class="container d-flex justify-content-between align-items-center">
-    <img src="images/logo.png" height="50" class="pe-none user-select-none">
+    <img src="<?= $logo ?>" height="50" class="pe-none user-select-none">
 
     <div class="flex-grow-1" style="max-width: 50%">
       <div class="input-group overflow-hidden">
@@ -9,19 +9,25 @@
       </div>
     </div>
 
-    <ul class="navbar-nav d-flex flex-row align-items-center mb-0">
+    <ul class="navbar-nav d-flex flex-row align-items-center mb-0 justify-content-between">
       <li class="nav-item mx-2">
-        <a class="nav-link d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasFavoritos">
-          <i class="bi bi-heart fs-4"></i>
-          <span class="ms-1">Favoritos</span>
-        </a>
-      </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link d-flex align-items-center js-account" style="cursor: pointer;" id="account-xl">
-          <i class="bi bi-person-circle fs-4"></i>
-          <span class="ms-1">Minha Conta</span>
-        </a>
+        <?php if ($usuario): ?>
+          <a class="nav-link d-flex align-items-center js-account" style="cursor: pointer;" id="account-xl">
+            <i class="bi bi-person-circle fs-4"></i>
+            <span class="ms-1">Minha Conta</span>
+          </a>
+        <?php else: ?>
+          <div class="d-flex gap-2">
+            <a class="nav-link d-flex align-items-center js-login" style="cursor: pointer;" id="login-xl">
+              <i class="bi bi-box-arrow-in-right fs-4"></i>
+              <span class="ms-1">Entrar</span>
+            </a>
+            <a class="nav-link d-flex align-items-center js-cadastro ms-2" style="cursor: pointer;" id="cadastro-xl">
+              <i class="bi bi-person-plus fs-4"></i>
+              <span class="ms-1">Criar Conta</span>
+            </a>
+          </div>
+        <?php endif; ?>
       </li>
       <li class="nav-item mx-2">
         <a class="nav-link d-flex align-items-center js-link-carrinho" style="cursor: pointer;" id="linkCarrinho-xl">

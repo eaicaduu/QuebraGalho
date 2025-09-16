@@ -39,7 +39,7 @@
                     <strong>Marca:</strong> <?= htmlspecialchars($produtos['fornecedor_id']) ?>
                 </div>
                 <div style="color: #666;">
-                    Produto: #<?= $produtos['id'] ?>
+                    Cód: <?= $produtos['cod_sku'] ?>
                 </div>
             </div>
 

@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("savedDocumento");
         localStorage.removeItem("savedSenha");
         if (data.admin) {
-          window.location.href = "./admin/painel.php?refresh=" + new Date().getTime();
+          window.location.href = "./admin/admin_painel.php?refresh=" + new Date().getTime();
         } else {
           const paginaAnterior = sessionStorage.getItem("paginaAnterior");
           sessionStorage.removeItem("paginaAnterior");

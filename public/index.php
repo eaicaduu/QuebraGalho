@@ -8,13 +8,19 @@ $conn = $db->getConnection();
 $stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
 $config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
 
+$nomeEmpresa = !empty($config['nome_empresa']) ? htmlspecialchars($config['nome_empresa']) : 'Minha Empresa';
+$corPrincipal = !empty($config['cor_principal']) ? htmlspecialchars($config['cor_principal']) : '#000000';
 $logo = !empty($config['logo'])
     ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
     : 'images/default.png';
 
-$stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 ORDER BY id ASC LIMIT 12");
+$stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 AND destaque = 0 ORDER BY id ASC LIMIT 12");
 $stmt->execute();
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 AND destaque = 1");
+$stmt->execute();
+$destaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $stmt = $conn->prepare("SELECT * FROM categorias");
 $stmt->execute();
@@ -25,15 +31,28 @@ $imagens = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $totalCarrinho = 0;
 $carrinho = [];
+$usuario = null;
 
 if (isset($_SESSION['usuario_id'])) {
 
-$stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :uid");
-$stmt->bindValue(':uid', $_SESSION['usuario_id']);
-$stmt->execute();
-$carrinho = $stmt->fetchAll();
+    $stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :uid");
+    $stmt->bindValue(':uid', $_SESSION['usuario_id']);
+    $stmt->execute();
+    $carrinho = $stmt->fetchAll();
 
-$totalCarrinho = count($carrinho);
+    $totalCarrinho = count($carrinho);
+
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = :id LIMIT 1");
+    $stmt->bindValue(':id', $_SESSION['usuario_id']);
+    $stmt->execute();
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($usuario) {
+        $usuario['nome'] = htmlspecialchars($usuario['nome']);
+        $usuario['imagem_perfil'] = !empty($usuario['imagem_perfil'])
+            ?  '../app/' . htmlspecialchars($usuario['imagem_perfil'])
+            : 'images/default.png';
+    }
 }
 
 ?>
@@ -43,33 +62,42 @@ $totalCarrinho = count($carrinho);
 
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($config['nome_empresa'] ?? 'Minha Empresa') ?></title>
-</head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="<?= $logo ?>">
-<link href="bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-<link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
-
+    <title><?= $nomeEmpresa ?></title>
+    <meta name="description" content="A Quebra Galho Ferragem oferece os melhores produtos em ferramentas, elétrica, hidráulica e construção. Atendimento rápido, produtos de qualidade e os melhores preços da região.">
+    <meta name="keywords" content="ferragem, materiais de construção, ferramentas, elétrica, hidráulica, parafusos, porcas, pregos, cimento, tinta, construção, loja de ferragens">
+    <meta name="author" content="Quebra Galho Ferragem">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Quebra Galho Ferragem">
+    <meta property="og:description" content="Tudo para sua obra ou reforma em um só lugar. Ferragens, materiais elétricos e hidráulicos com os melhores preços.">
+    <meta property="og:url" content="https://quebragalhoferragem.com.br/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <link rel="canonical" href="https://quebragalhoferragem.com.br/">
+    <link rel="icon" type="image/png" href="<?= $logo ?>">
+    <link rel="shortcut icon" href="<?= $logo ?>">
+    <link href="bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 
 <style>
 </style>
 
-<body class="user-select-none bg-warning">
+<body style="user-select: none; background-color: <?= $corPrincipal ?>;">
 
     <?php include 'includes/index/nav/nav-xl.php'; ?>
     <?php include 'includes/index/nav/menu-sm.php'; ?>
     <?php include 'includes/index/nav/nav-sm.php'; ?>
-
-    <?php include 'includes/index/favoritos.php'; ?>
 
     <?php include 'includes/produto/carrinho.php'; ?>
 
     <?php include 'includes/index/categorias.php'; ?>
 
     <?php include 'includes/index/carousel.php'; ?>
+
+    <?php include 'includes/index/destaques.php'; ?>
 
     <?php include 'includes/index/produtos.php'; ?>
 
@@ -84,7 +112,6 @@ $totalCarrinho = count($carrinho);
     <script src="js/carrinho/excluir_carrinho.js"></script>
     <script src="js/carrinho/buscar_carrinho.js"></script>
     <script src="js/favoritos/salvar_favoritos.js"></script>
-    <script src="js/favoritos/buscar_favoritos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 </body>

@@ -15,13 +15,16 @@ $conn = $db->getConnection();
 $stmt = $conn->query("SELECT * FROM configuracao LIMIT 1");
 $config = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$nome_empresa    = $config['nome_empresa']    ?? '';
-$cor_principal= $config['cor_principal']?? '#000000';
-$telefone     = $config['telefone']     ?? '';
-$telefone_secundario     = $config['telefone_secundario']     ?? '';
-$email        = $config['email']        ?? '';
-$endereco     = $config['endereco']     ?? '';
-$logo         = $config['logo']         ?? '';
+$nome_empresa = $config['nome_empresa'] ?? '';
+$cor_principal = $config['cor_principal'] ?? '#000000';
+$telefone = $config['telefone'] ?? '';
+$telefone_secundario = $config['telefone_secundario'] ?? '';
+$email = $config['email'] ?? '';
+$endereco = $config['endereco'] ?? '';
+$logo = !empty($config['logo'])
+    ? '../../../app/uploads/logo/' . htmlspecialchars($config['logo'])
+    : '../../images/default.png';
+
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +34,7 @@ $logo         = $config['logo']         ?? '';
     <meta charset="UTF-8">
     <title>Painel Configurações - Quebra Galho</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../../images/logo.png">
+    <link rel="icon" href="<?= $logo ?>">
     <link href="../../bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/style.css" rel="stylesheet">
     <link href="../../bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">

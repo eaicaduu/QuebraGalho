@@ -40,15 +40,18 @@
 
             <div class="col-12 col-md-6">
                 <label for="logo" class="form-label">Logo da Loja</label>
-                <input type="file" class="form-control" id="logo" name="logo">
-                <?php if ($logo): ?>
-                    <img id="preview_logo" src="../../../app/uploads/logo/<?= htmlspecialchars($logo) ?>" alt="Logo"
-                        style="max-height:50px; margin-top:10px;">
-                <?php else: ?>
-                    <img id="preview_logo" src="" alt="Logo" style="max-height:50px; margin-top:10px; display:none;">
-                <?php endif; ?>
-            </div>
+                <div class="d-flex align-items-center gap-3">
+                    <input type="file" class="form-control" id="logo" name="logo" style="max-width: 70%;">
 
+                    <?php if ($logo): ?>
+                        <img id="preview_logo" src="../../../app/uploads/logo/<?= htmlspecialchars($logo) ?>"
+                            alt="Logo" style="max-height:50px;">
+                    <?php else: ?>
+                        <img id="preview_logo" src="" alt="Logo"
+                            style="max-height:50px; display:none;">
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
 
         <div class="mt-4">

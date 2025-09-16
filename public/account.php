@@ -7,12 +7,12 @@ if (!isset($_SESSION['usuario_documento'])) {
     exit();
 }
 
-$database = new Database();
-$db = $database->getConnection();
+$db = new Database();
+$conn = $db->getConnection();
 
 $documento = $_SESSION['usuario_documento'];
 
-$stmt = $db->prepare("SELECT * FROM usuarios WHERE documento = :documento");
+$stmt = $conn->prepare("SELECT * FROM usuarios WHERE documento = :documento");
 $stmt->bindParam(':documento', $documento);
 $stmt->execute();
 
@@ -23,6 +23,14 @@ if (!$user) {
     header("Location: login.php");
     exit();
 }
+
+$stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
+$config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
+
+$logo = !empty($config['logo'])
+    ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
+    : 'images/default.png';
+
 
 $paginaAtual = 'conta';
 $basePath = 'account/';
@@ -36,7 +44,8 @@ $basePath = 'account/';
     <meta charset="UTF-8">
     <title>Minha Conta - Quebra Galho</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="images/logo.png">
+    <link rel="icon" type="image/png" href="<?= $logo ?>">
+    <link rel="shortcut icon" href="<?= $logo ?>">
     <link href="bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">

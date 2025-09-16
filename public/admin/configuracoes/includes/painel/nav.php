@@ -1,9 +1,9 @@
 <?php
 $navMap = [
     'principal' => ['icon' => 'bi-gear', 'titulo' => 'Configurações'],
-    'carousel'  => ['icon' => 'bi-images', 'titulo' => 'Imagens Carousel'],
-    'pagamentos'=> ['icon' => 'bi-credit-card', 'titulo' => 'Pagamentos'],
-    'outros'    => ['icon' => 'bi-gear', 'titulo' => 'Outros'],
+    'carousel' => ['icon' => 'bi-images', 'titulo' => 'Imagens Carousel'],
+    'pagamentos' => ['icon' => 'bi-credit-card', 'titulo' => 'Pagamentos'],
+    'outros' => ['icon' => 'bi-gear', 'titulo' => 'Outros'],
 ];
 
 $navIcon = $navMap[$paginaAtual]['icon'] ?? 'bi-gear';
@@ -13,8 +13,8 @@ $navTitulo = $navMap[$paginaAtual]['titulo'] ?? 'Configurações';
 <nav class="navbar navbar-expand-lg bg-transparent mb-2">
     <div class="container d-flex align-items-center justify-content-between">
 
-        <button class="btn btn-link text-decoration-none text-dark p-0" 
-            onclick="window.location.href = '../painel.php'">
+        <button class="btn btn-link text-decoration-none text-dark p-0"
+            onclick="window.location.href = '../admin_painel.php'">
             <i class="bi bi-arrow-left-circle" style="font-size: 1.8rem;"></i>
         </button>
 
@@ -25,6 +25,6 @@ $navTitulo = $navMap[$paginaAtual]['titulo'] ?? 'Configurações';
             </span>
         </div>
 
-        <img src="../../images/logo.png" class="pe-none" height="50">
+        <img src="<?= $logo ?>" class="pe-none" height="50">
     </div>
 </nav>

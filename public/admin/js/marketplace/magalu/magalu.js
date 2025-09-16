@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const checkboxMagalu = document.getElementById('switchMagalu');
+  const checkboxMagalu = localStorage.getItem('mercadoLivreChecked') === 'true';
   const container = document.getElementById('produtos');
 
   checkboxMagalu.addEventListener('change', function () {
