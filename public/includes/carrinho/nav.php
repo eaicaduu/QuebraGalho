@@ -9,5 +9,7 @@
             <i class="bi bi-cart3" style="font-size: 1.8rem;"></i>
             <span class="ms-2 text-dark">Carrinho</span>
         </span>
+
+        <img src="<?= $logo ?>" height="50" class="pe-none user-select-none">
     </div>
 </nav>

@@ -6,6 +6,25 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
     exit();
 }
 
+$paginaAtual = basename($_SERVER['PHP_SELF']);
+
+require_once __DIR__ . '/../../../app/config/database.php';
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmtProdutos = $conn->query("SELECT COUNT(*) as total FROM produtos");
+$totalProdutos = $stmtProdutos->fetch(PDO::FETCH_ASSOC)['total'];
+
+$stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
+$config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
+
+$nomeEmpresa = !empty($config['nome_empresa']) ? htmlspecialchars($config['nome_empresa']) : 'Minha Empresa';
+$corPrincipal = !empty($config['cor_principal']) ? htmlspecialchars($config['cor_principal']) : '#000000';
+$logo = !empty($config['logo'])
+    ? '../../../app/uploads/logo/' . htmlspecialchars($config['logo'])
+    : '../../images/default.png';
+
 ?>
 
 <!DOCTYPE html>
@@ -13,19 +32,20 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
 <head>
     <meta charset="UTF-8">
-    <title>Produtos Imagens - Quebra Galho</title>
-    <link rel="icon" href="../../images/logo.png">
-    <link rel="stylesheet" href="../../css/style.css">
+    <title>Produtos Imagens - <?= $nomeEmpresa ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="<?= $logo ?>">
+    <link rel="shortcut icon" href="<?= $logo ?>">
+    <link rel="stylesheet" href="../../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <?php include 'includes/imagens/nav.php'; ?>
+    <?php include 'includes/painel/nav.php'; ?>
 
-    <?php include 'includes/imagens/produtos.php'; ?>
+    <?php include 'includes/painel/cards.php'; ?>
 
     <script src="../js/produtos/imagens/ordem_produto_imagens.js"></script>
     <script src="../js/produtos/imagens/adicionar_produto_imagens.js"></script>

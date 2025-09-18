@@ -12,10 +12,11 @@
                 ];
 
                 foreach ($menu as $key => $item):
-                    $ativo = ($paginaAtual === $key) ? 'bg-warning' : '';
+                     $ativo = ($paginaAtual === $key) ? $cor_principal : '';
                     ?>
                     <a href="<?= $item['link'] ?>"
-                        class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-2 <?= $ativo ?>">
+                        class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-2"
+                        style='background-color: <?= $ativo?>'>
                         <i class="bi <?= $item['icon'] ?> fs-4"></i> <?= $item['label'] ?>
                     </a>
                 <?php endforeach; ?>

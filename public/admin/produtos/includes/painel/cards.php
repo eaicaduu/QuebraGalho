@@ -3,72 +3,82 @@
 
         <div class="col-12 col-lg-3 d-none d-lg-block">
             <div class="list-group shadow-sm">
-                <a href="produtos_geral.php"
-                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-collection fs-4"></i> Visão Geral
-                </a>
-                <a href="produtos_categorias.php"
-                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-ui-checks-grid fs-4"></i> Categorias
-                </a>
-                <a href="produtos_detalhes.php"
-                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-card-text fs-4"></i> Detalhes
-                </a>
-                <a href="produtos_imagens.php"
-                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-images fs-4"></i> Imagens
-                </a>
-                <a href="produtos_estoque.php"
-                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-box-seam fs-4"></i> Estoque
-                </a>
-                <a href="produtos_caracteristicas.php"
-                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-circle-square fs-4"></i> Características
-                </a>
-                <a href="produtos_dados_fiscais.php"
-                    class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-1 gap-md-2">
-                    <i class="bi bi-file-earmark-text text-dark fs-4"></i> Dados Fiscais
-                </a>
+                <?php
+                $menuProdutos = [
+                    'produtos_painel.php' => ['label' => 'Painel Produtos', 'icon' => 'bi-box-seam'],
+                    'produtos_geral.php' => ['label' => 'Visão Geral', 'icon' => 'bi-collection'],
+                    'produtos_categorias.php' => ['label' => 'Categorias', 'icon' => 'bi-ui-checks-grid'],
+                    'produtos_detalhes.php' => ['label' => 'Detalhes', 'icon' => 'bi-card-text'],
+                    'produtos_imagens.php' => ['label' => 'Imagens', 'icon' => 'bi-images'],
+                    'produtos_estoque.php' => ['label' => 'Estoque', 'icon' => 'bi-box-seam'],
+                    'produtos_caracteristicas.php' => ['label' => 'Características', 'icon' => 'bi-circle-square'],
+                    'produtos_dados_fiscais.php' => ['label' => 'Dados Fiscais', 'icon' => 'bi-file-earmark-text'],
+                ]; ?>
+                <?php foreach ($menuProdutos as $arquivo => $item):
+                    $ativo = ($paginaAtual === $arquivo) ? $corPrincipal : '';
+                ?>
+                    <a href="<?= $arquivo ?>"
+                        class="list-group-item list-group-item-action d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-start text-center gap-2"
+                        style='background-color: <?= $ativo ?>'>
+                        <i class="bi <?= $item['icon'] ?> fs-4"></i> <?= $item['label'] ?>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
 
-        <div class="d-lg-none" style="padding-left: 0; padding-right: 0;">
-            <div class="overflow-auto"
-                style="white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem;">
-                <a href="produtos_geral.php" class="btn btn-secondary me-2 mb-2 ms-2"
-                    style="display: inline-block; white-space: normal; width: 150px;">
-                    <i class="bi bi-collection fs-4"></i><br>Visão Geral
-                </a>
-                <a href="produtos_categorias.php" class="btn btn-secondary me-2 mb-2"
-                    style="display: inline-block; white-space: normal; width: 150px;">
-                    <i class="bi bi-menu-up fs-4"></i><br>Categorias
-                </a>
-                <a href="produtos_detalhes.php" class="btn btn-secondary me-2 mb-2"
-                    style="display: inline-block; white-space: normal; width: 150px;">
-                    <i class="bi bi-sliders fs-4"></i><br> Detalhes
-                </a>
-                <a href="produtos_imagens.php" class="btn btn-secondary me-2 mb-2"
-                    style="display: inline-block; white-space: normal; width: 150px;">
-                    <i class="bi bi-images fs-4"></i><br>Imagens
-                </a>
-                <a href="produtos_estoque.php" class="btn btn-secondary me-2 mb-2"
-                    style="display: inline-block; white-space: normal; width: 150px;">
-                    <i class="bi bi-box-seam fs-4"></i><br>Estoque
-                </a>
-                <a href="produtos_caracteristicas.php" class="btn btn-secondary me-2 mb-2"
-                    style="display: inline-block; white-space: normal; width: 150px;">
-                    <i class="bi bi-ticket-perforated fs-4"></i><br> Características
-                </a>
-                <a href="produtos_dados_fiscais.php" class="btn btn-secondary me-2 mb-2"
-                    style="display: inline-block; white-space: normal; width: 150px;">
-                    <i class="bi bi-file-earmark-text fs-4"></i><br>Dados Fiscais
-                </a>
+        <div class="d-lg-none px-0">
+            <div class="overflow-auto" style="white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem;">
+                <?php foreach ($menuProdutos as $arquivo => $item):
+                    $ativo = ($paginaAtual === $arquivo) ? 'btn-warning' : 'btn-secondary';
+                    $palavras = explode(' ', $item['label']);
+                    $ultimaPalavra = array_pop($palavras);
+                ?>
+                    <a href="<?= $arquivo ?>" class="btn <?= $ativo ?> me-2 mb-2 ms-2"
+                        style="display:inline-block; width:150px; white-space:normal;">
+                        <i class="bi <?= $item['icon'] ?> fs-4"></i><br><?= $ultimaPalavra ?>
+                    </a>
+                <?php endforeach; ?>
             </div>
         </div>
 
-        <?php include 'produtos.php'; ?>
+        <div class="col-12 col-lg-9">
+            <?php
+            if ($paginaAtual === 'produtos_categorias.php') {
+                include __DIR__ . '/../categorias/options.php';
+            } elseif ($paginaAtual === 'produtos_geral.php') {
+                include __DIR__ . '/../geral/options.php';
+            } else {
+                 include __DIR__ . '/options.php';
+            }?>
+            <?php
+            switch ($paginaAtual) {
+                case 'produtos_painel.php':
+                    include 'includes/painel/produtos.php';
+                    break;
+                case 'produtos_geral.php':
+                    include 'includes/geral/produtos.php';
+                    break;
+                case 'produtos_categorias.php':
+                    include 'includes/categorias/categorias.php';
+                    break;
+                case 'produtos_detalhes.php':
+                    include 'includes/detalhes/produtos.php';
+                    break;
+                case 'produtos_imagens.php':
+                    include 'includes/imagens/produtos.php';
+                    break;
+                case 'produtos_estoque.php':
+                    include 'includes/estoque/estoque.php';
+                    break;
+                case 'produtos_caracteristicas.php':
+                    include 'includes/caracteristicas/caracteristicas.php';
+                    break;
+                case 'produtos_dados_fiscais.php':
+                    include 'includes/dados_fiscais/dados_fiscais.php';
+                    break;
+            }
+            ?>
+        </div>
 
     </div>
 </div>

@@ -31,7 +31,7 @@
                             if (!$produto)
                                 continue;
 
-                            $imagem = empty($produto['imagem']) ? 'images/default.png' : '../app/models/' . $produto['imagem'];
+                            $imagem = empty($produto['imagem_principal']) ? 'images/default.png' : '../app/uploads/produtos/' . $produto['imagem_principal'];
                             $subtotal = $produto['preco'] * $item['quantidade'];
                             $total += $subtotal;
                             ?>

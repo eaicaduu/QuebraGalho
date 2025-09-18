@@ -1,6 +1,6 @@
 <nav class="navbar bg-white d-none d-xl-flex">
   <div class="container d-flex justify-content-between align-items-center">
-    <img src="<?= $logo ?>" height="50" class="pe-none user-select-none">
+    <div onclick="window.location.href = 'index.php'"><img src="<?= $logo ?>" height="50" class="pe-none user-select-none"></div>
 
     <div class="flex-grow-1" style="max-width: 50%">
       <div class="input-group overflow-hidden">
@@ -29,10 +29,15 @@
           </div>
         <?php endif; ?>
       </li>
-      <li class="nav-item mx-2">
-        <a class="nav-link d-flex align-items-center js-link-carrinho" style="cursor: pointer;" id="linkCarrinho-xl">
+      <li class="nav-item mx-2 position-relative">
+        <a class="nav-link d-flex align-items-center js-link-carrinho" style="cursor: pointer; position: relative;" id="linkCarrinho-xl">
           <i class="bi bi-cart3 fs-4"></i>
           <span class="ms-1">Carrinho</span>
+          <span id="badgeCarrinhoXL"
+            class="position-absolute bg-danger text-white d-flex justify-content-center align-items-center"
+            style="top: 0.5rem; left: -0.5rem; width: 1.2rem; height: 1.2rem; font-size: 0.75rem; border-radius: 50%;">
+            <?= $totalCarrinho ?>
+          </span>
         </a>
       </li>
     </ul>

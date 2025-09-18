@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form-configuracoes');
+    const btnSalvar = document.getElementById('btn-salvar-config');
 
     document.getElementById('btn-salvar-config').addEventListener('click', () => {
         const formData = new FormData(form);
@@ -12,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.success) {
                     Swal.fire('Sucesso', 'Configurações salvas com sucesso!', 'success');
+                    btnSalvar.classList.remove('btn-success');
+                    btnSalvar.classList.add('btn-secondary');
+                    btnSalvar.disabled = true;
                 } else {
                     Swal.fire('Erro', data.message || 'Não foi possível salvar', 'error');
                 }

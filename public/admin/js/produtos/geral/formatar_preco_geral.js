@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   tabelaBody.addEventListener("input", (e) => {
-    if (e.target.classList.contains("preco-produto") || e.target.classList.contains("preco-promocional")) {
+    if (e.target.classList.contains("preco-produto") || e.target.classList.contains("preco-promocional") || e.target.classList.contains("preco-pj")) {
       formatarPrecoBR(e.target);
     }
     if (e.target.classList.contains("desconto-percentual")) {
@@ -50,6 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   tabelaBody.querySelectorAll(".preco-produto").forEach(input => {
+    if (input.value) formatarPrecoBR(input);
+  });
+
+  tabelaBody.querySelectorAll(".preco-pj").forEach(input => {
     if (input.value) formatarPrecoBR(input);
   });
 

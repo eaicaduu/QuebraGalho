@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const nomeInput = getVisibleInput(card, ".nome-produto");
         const descInput = getVisibleInput(card, ".desc_curta");
         const precoInput = getVisibleInput(card, ".preco-produto");
+        const precoPJInput = getVisibleInput(card, ".preco-pj");
         const promoCheckbox = getVisibleInput(card, ".promocao-produto");
         const destaqueCheckbox = getVisibleInput(card, ".destaque-produto");
         const statusInput = getVisibleInput(card, ".status-produto");
@@ -32,6 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
             .replace(",", ".");
 
         preco = parseFloat(preco).toFixed(2);
+
+        let precoPJ = precoPJInput?.value || "";
+
+        precoPJ = precoPJ.replace(/\s/g, "")
+            .replace("R$", "")
+            .replace(/\./g, "")
+            .replace(",", ".");
+
+        precoPJ = parseFloat(precoPJ).toFixed(2);
 
         const descontoPercentual = descontoPercentualInput ? descontoPercentualInput.value.replace(",", ".") : 0;
         const precoPromocional = precoPromoInput ? precoPromoInput.value.replace("R$", "").replace(/\./g, "").replace(",", ".") : 0;
@@ -49,13 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
             formData.append("nome", nome);
             formData.append("desc_curta", desc_curta);
             formData.append("preco", preco);
+            formData.append("preco_pj", precoPJ);
             formData.append("status", status);
             formData.append("promocao", promocao);
             formData.append("destaque", destaque);
             formData.append("desconto_percentual", descontoPercentual);
             formData.append("preco_promocional", precoPromocional);
 
-            const res = await fetch("../../../app/models/produtos/geral/edit_produto.php", {
+            const res = await fetch("../../../app/models/produtos/geral/edit_infos_produtos_geral.php", {
                 method: "POST",
                 body: formData
             });
@@ -126,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     formData.append("imagem", file);
 
                     try {
-                        const res = await fetch("../../../app/models/produtos/geral/edit_produto.php", {
+                        const res = await fetch("../../../app/models/produtos/geral/edit_infos_produtos_geral.php", {
                             method: "POST",
                             body: formData
                         });
@@ -165,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         formData.append("id", produtoId);
                         formData.append("imagem", url);
 
-                        const res = await fetch("../../../app/models/produtos/geral/edit_produto.php", {
+                        const res = await fetch("../../../app/models/produtos/geral/edit_infos_produtos_geral.php", {
                             method: "POST",
                             body: formData
                         });

@@ -8,6 +8,22 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
 $paginaAtual = 'carousel';
 
+require_once __DIR__ . '/../../../app/config/database.php';
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmt = $conn->query("SELECT * FROM configuracao LIMIT 1");
+$config = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$nomeEmpresa        = $config['nome_empresa'] ?? '';
+$cor_principal       = $config['cor_principal'] ?? '#000000';
+$logo                = !empty($config['logo'])
+    ? '../../../app/uploads/logo/' . htmlspecialchars($config['logo'])
+    : '../../images/default.png';
+
+$carouselStmt = $conn->query("SELECT * FROM carousel ORDER BY id DESC");
+$carouselImgs = $carouselStmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -15,9 +31,10 @@ $paginaAtual = 'carousel';
 
 <head>
     <meta charset="UTF-8">
-    <title>Carousel Configurações - Quebra Galho</title>
+    <title>Carousel Configurações - <?= $nomeEmpresa ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../../images/logo.png">
+    <link rel="icon" type="image/png" href="<?= $logo ?>">
+    <link rel="shortcut icon" href="<?= $logo ?>">
     <link href="../../bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/style.css" rel="stylesheet">
     <link href="../../bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">

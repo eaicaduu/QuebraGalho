@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+  function redirecionarCategoria(select) {
+    const categoria = select.value;
+    if (categoria) {
+      window.location.href = "categoria.php?categoria=" + encodeURIComponent(categoria);
+    } else {
+      window.location.href = "categoria.php";
+    }
+  }
   const wrapper = document.getElementById('categoriasWrapper');
   const prev = document.getElementById('prevCat');
   const next = document.getElementById('nextCat');

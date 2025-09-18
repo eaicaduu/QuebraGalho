@@ -1,11 +1,9 @@
 <div class="col-md-3">
     <div class="p-3 shadow-sm rounded border bg-white d-flex flex-column justify-content-between" style="height: 30vh;">
 
-        <!-- Título -->
         <div class="d-flex justify-content-between align-items-center">
             <h6 class="fw-semibold mb-3">Resumo</h6>
 
-            <!-- Total com label e valor -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="fw-semibold text-muted me-2">Total</span>
                 <span class="text-success fw-bold" id="totalFinal">

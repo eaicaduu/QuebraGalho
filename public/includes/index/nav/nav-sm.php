@@ -2,9 +2,16 @@
   <div class="container d-flex justify-content-between align-items-center">
 
     <ul class="navbar-nav d-flex flex-row align-items-center">
-      <li class="nav-item mx-2">
-        <a class="nav-link js-link-carrinho" id="linkCarrinho-sm">
+      <li class="nav-item mx-2 position-relative">
+        <a class="nav-link js-link-carrinho" id="linkCarrinho-sm" style="position: relative;">
           <i class="bi bi-cart3 text-black" style="font-size: 2rem;"></i>
+          <span id="badgeCarrinho"
+            class="position-absolute fw-bold bg-danger text-white d-flex justify-content-center align-items-center"
+            style="top: 0.7rem; left: 1.2rem; width: 1.2rem; height: 1.2rem; font-size: 0.75rem; border-radius: 50%;">
+            <?= $totalCarrinho ?>
+          </span>
+          <span class="visually-hidden">produtos no carrinho</span>
+          </span>
         </a>
       </li>
     </ul>

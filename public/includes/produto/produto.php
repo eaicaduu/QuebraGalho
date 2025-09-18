@@ -1,10 +1,10 @@
-<div class="container py-5">
-    <div class="row g-5">
+<div class="container py-2 py-xl-5">
+    <div class="row">
 
         <div class="col-md-6 text-center position-relative">
             <button
                 class="btn btn-light d-flex align-items-center justify-content-center position-absolute top-0 start-0 ms-4 m-2 p-2 rounded-circle shadow-sm"
-                style="width: 36px; height: 36px;" onclick="history.back();" title="Voltar">
+                style="width: 36px; height: 36px;" onclick="history.back()" title="Voltar">
                 <i class="bi bi-arrow-left"></i>
             </button>
 
@@ -16,30 +16,35 @@
             </button>
 
             <img src="<?= $imagemSrc ?>" class="img-fluid rounded shadow-sm pe-none"
-                alt="<?= htmlspecialchars($produtos['nome']) ?>" style="max-height: 400px;">
+                alt="<?= htmlspecialchars($produtos['nome']) ?>" style="max-height: 400px; max-width:100%;">
         </div>
 
         <div class="col-md-6">
-            <h1 class="mb-2"><?= htmlspecialchars($produtos['nome']) ?></h1>
+            <h2 class="mb-2 mt-4 mt-xl-0 fw-semibold"><?= htmlspecialchars($produtos['nome']) ?></h2>
+            <div class="text-warning mb-2" style="font-size: 1.1rem;">
+                <?php for ($i = 1; $i <= 5; $i++): ?>
+                    <i class="bi <?=
+                                    ($produtos['avaliacao_media'] >= $i) ? 'bi-star-fill' : ($produtos['avaliacao_media'] >= $i - 0.5 ? 'bi-star-half' : 'bi-star')
+                                    ?> me-1"></i>
+                <?php endfor; ?>
+
+                <span class="text-muted ms-2" style="font-size: 0.9rem;">
+                    (<?= intval($produtos['quantidade_avaliacoes'] ?? 0) ?> avaliações)
+                </span>
+            </div>
             <div class="d-flex justify-content-between align-items-center">
-                <div class="text-warning mb-2" style="font-size: 1.1rem;">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                        <i class="bi <?=
-                            ($produtos['avaliacao_media'] >= $i) ? 'bi-star-fill' :
-                            ($produtos['avaliacao_media'] >= $i - 0.5 ? 'bi-star-half' : 'bi-star')
-                            ?> me-1"></i>
-                    <?php endfor; ?>
-                    <?php if (!empty($produtos['quantidade_avaliacoes']) && $produtos['quantidade_avaliacoes'] > 0): ?>
-                        <span class="text-muted ms-1" style="font-size: 0.9rem;">
-                            (<?= intval($produtos['quantidade_avaliacoes']) ?> avaliações)
-                        </span>
-                    <?php endif; ?>
-                </div>
-                <div>
-                    <strong>Marca:</strong> <?= htmlspecialchars($produtos['fornecedor_id']) ?>
-                </div>
-                <div style="color: #666;">
-                    Cód: <?= $produtos['cod_sku'] ?>
+                <div class="d-flex justify-content-between align-items-center w-100" style="color: #666;">
+                    <span class="me-auto">
+                        Categoria:
+                        <?php if (!empty($produtos['categoria_id'])): ?>
+                            <a href="categoria.php?categoria=<?= urlencode($produtos['categoria_id']) ?>">
+                                <?= htmlspecialchars($produtos['categoria_nome']) ?>
+                            </a>
+                        <?php else: ?>
+                            Sem categoria
+                        <?php endif; ?>
+                    </span>
+                    <span>Código do Produto: <?= $produtos['cod_sku'] ?></span>
                 </div>
             </div>
 
@@ -49,7 +54,7 @@
                     <small class="text-muted d-block fs-5" style="text-decoration: line-through;">
                         R$ <?= number_format($produtos['preco'], 2, ',', '.') ?>
                     </small>
-                    <h1 class="text-danger fw-bold fs-1">
+                    <h1 class="text-danger fw-semibold fs-1">
                         R$ <?= number_format($produtos['preco_promocional'], 2, ',', '.') ?>
                     </h1>
                     <?php if (!empty($produtos['desconto_percentual'])): ?>
@@ -58,7 +63,7 @@
                         </span>
                     <?php endif; ?>
                 <?php else: ?>
-                    <h1 class="text-success fw-bold fs-1">
+                    <h1 class="text-success fw-semibold fs-1">
                         R$ <?= number_format($produtos['preco'], 2, ',', '.') ?>
                     </h1>
                 <?php endif; ?>

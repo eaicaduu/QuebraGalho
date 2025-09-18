@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const nomeAtual = getVisibleInput(card, ".nome-produto")?.value || "";
         const descAtual = getVisibleInput(card, ".desc_curta")?.value || "";
         const precoAtual = getVisibleInput(card, ".preco-produto")?.value || "";
+        const precoPJAtual = getVisibleInput(card, ".preco-pj")?.value || "";
         const statusAtual = getVisibleInput(card, ".status-produto")?.value || "";
         const promocaoInput = getVisibleInput(card, ".promocao-produto");
         const promocaoAtual = promocaoInput ? promocaoInput.checked : false;
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const nomeOrig = getVisibleInput(card, ".nome-produto")?.getAttribute("value") || "";
         const descOrig = getVisibleInput(card, ".desc_curta")?.getAttribute("value") || "";
         const precoOrig = getVisibleInput(card, ".preco-produto")?.getAttribute("value") || "";
+        const precoPJOrig = getVisibleInput(card, ".preco-pj")?.getAttribute("value") || "";
         const promocaoOrig = promocaoInput ? promocaoInput.defaultChecked : false;
         const destaqueOrig = destaqueInput ? destaqueInput.defaultChecked : false;
         const statusSelect = getVisibleInput(card, ".status-produto");
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
             nomeAtual !== nomeOrig ||
             descAtual !== descOrig ||
             precoAtual !== precoOrig ||
+            precoPJAtual !== precoPJOrig ||
             promocaoAtual !== promocaoOrig ||
             destaqueAtual !== destaqueOrig ||
             descontoPercentualAtual !== descontoPercentualOrig ||

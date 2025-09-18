@@ -6,6 +6,25 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
     exit();
 }
 
+$paginaAtual = basename($_SERVER['PHP_SELF']);
+
+require_once __DIR__ . '/../../../app/config/database.php';
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$stmtProdutos = $conn->query("SELECT COUNT(*) as total FROM produtos");
+$totalProdutos = $stmtProdutos->fetch(PDO::FETCH_ASSOC)['total'];
+
+$stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
+$config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
+
+$nomeEmpresa = !empty($config['nome_empresa']) ? htmlspecialchars($config['nome_empresa']) : 'Minha Empresa';
+$corPrincipal = !empty($config['cor_principal']) ? htmlspecialchars($config['cor_principal']) : '#000000';
+$logo = !empty($config['logo'])
+    ? '../../../app/uploads/logo/' . htmlspecialchars($config['logo'])
+    : '../../images/default.png';
+
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +32,10 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
 <head>
     <meta charset="UTF-8">
-    <title>Painel Produtos - Quebra Galho</title>
+    <title>Painel Produtos - <?= $nomeEmpresa ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="../../images/logo.png">
+    <link rel="icon" type="image/png" href="<?= $logo ?>">
+    <link rel="shortcut icon" href="<?= $logo ?>">
     <link href="../../bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../css/style.css" rel="stylesheet">
     <link href="../../bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
@@ -27,12 +47,12 @@ if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2
 
     <?php include 'includes/painel/cards.php'; ?>
 
-    <script src="../js/produtos/painel/listar_produto_painel.js"></script>
     <script src="../js/produtos/painel/pesquisar_produto_painel.js"></script>
-    <script src="../js/produtos/painel/excluir_produto_painel.js"></script>
     <script src="../js/produtos/painel/importar_produto_painel.js"></script>
     <script src="../js/produtos/painel/salvar_produto_painel.js"></script>
+    <script src="../js/produtos/painel/listar_produto_painel.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 </body>
+
 </html>

@@ -13,6 +13,17 @@ $corPrincipal = !empty($config['cor_principal']) ? htmlspecialchars($config['cor
 $logo = !empty($config['logo'])
     ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
     : 'images/default.png';
+$telefoneEmpresa = !empty($config['telefone']) ? htmlspecialchars($config['telefone']) : '';
+$telefoneSecundarioEmpresa = !empty($config['telefone_secundario']) ? htmlspecialchars($config['telefone_secundario']) : '';
+$emailEmpresa = !empty($config['email']) ? htmlspecialchars($config['email']) : 'contato@empresa.com';
+$enderecoEmpresa = !empty($config['endereco']) ? htmlspecialchars($config['endereco']) : '';
+$mapsEmpresa = !empty($config['maps']) ? htmlspecialchars($config['maps']) : '#';
+$descricaoEmpresa = !empty($config['descricao'])
+    ? htmlspecialchars($config['descricao'])
+    : 'Descrição Da Empresa.';
+$facebook = !empty($config['facebook']) ? htmlspecialchars($config['facebook']) : '#';
+$instagram = !empty($config['instagram']) ? htmlspecialchars($config['instagram']) : '#';
+$whatsapp = !empty($config['whatsapp']) ? htmlspecialchars($config['whatsapp']) : '#';
 
 $stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 AND destaque = 0 ORDER BY id ASC LIMIT 12");
 $stmt->execute();
@@ -22,7 +33,7 @@ $stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 AND destaque = 1
 $stmt->execute();
 $destaques = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $conn->prepare("SELECT * FROM categorias");
+$stmt = $conn->prepare("SELECT * FROM categorias WHERE status = 1");
 $stmt->execute();
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -35,10 +46,10 @@ $usuario = null;
 
 if (isset($_SESSION['usuario_id'])) {
 
-    $stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :uid");
-    $stmt->bindValue(':uid', $_SESSION['usuario_id']);
+    $stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :id");
+    $stmt->bindValue(':id', $_SESSION['usuario_id']);
     $stmt->execute();
-    $carrinho = $stmt->fetchAll();
+    $carrinho = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $totalCarrinho = count($carrinho);
 
@@ -91,8 +102,6 @@ if (isset($_SESSION['usuario_id'])) {
     <?php include 'includes/index/nav/menu-sm.php'; ?>
     <?php include 'includes/index/nav/nav-sm.php'; ?>
 
-    <?php include 'includes/produto/carrinho.php'; ?>
-
     <?php include 'includes/index/categorias.php'; ?>
 
     <?php include 'includes/index/carousel.php'; ?>
@@ -105,11 +114,9 @@ if (isset($_SESSION['usuario_id'])) {
 
     <script>
         const isLoggedIn = <?= isset($_SESSION['usuario_documento']) ? 'true' : 'false' ?>;
-        const totalCarrinho = <?= $totalCarrinho ?>;
     </script>
     <script src="js/conta/link.js"></script>
     <script src="js/categorias/categorias.js"></script>
-    <script src="js/carrinho/excluir_carrinho.js"></script>
     <script src="js/carrinho/buscar_carrinho.js"></script>
     <script src="js/favoritos/salvar_favoritos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

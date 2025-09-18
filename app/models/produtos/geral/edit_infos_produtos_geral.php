@@ -29,6 +29,11 @@ if (isset($_POST['preco'])) {
     $params[':preco'] = trim($_POST['preco']);
 }
 
+if (isset($_POST['preco_pj'])) {
+    $fields[] = "preco_pj = :preco_pj";
+    $params[':preco_pj'] = trim($_POST['preco_pj']);
+}
+
 if (isset($_POST['promocao'])) {
     $fields[] = "promocao = :promocao";
     $params[':promocao'] = $_POST['promocao'] ? 1 : 0;

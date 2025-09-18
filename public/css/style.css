@@ -98,6 +98,12 @@ table th {
   }
 }
 
+@media (min-width: 1200px) {
+  .carousel-img {
+    height: 400px !important;
+  }
+}
+
 .offcanvas-backdrop.show {
   background-color: #ffc10700 !important;
 }
@@ -128,6 +134,16 @@ table th {
   100% {
     transform: scale(1);
   }
+}
+
+@keyframes badge-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+.badge-animate {
+  animation: badge-pop 0.3s ease;
 }
 
 .nav-link .underline {

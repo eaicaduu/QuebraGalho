@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let paginaAtual = parseInt(localStorage.getItem(storagePrefix + "_pagina")) || 1;
 
   function carregarPagina(pagina) {
-    fetch(`../../../app/models/produtos/geral/listar_produto.php?pagina=${pagina}&limite=${limite}`)
+    fetch(`../../../app/models/produtos/detalhes/listar_produtos_detalhes.php?pagina=${pagina}&limite=${limite}`)
       .then(res => res.json())
       .then(data => {
         if (data.html.trim() === "") {

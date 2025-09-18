@@ -21,14 +21,23 @@ if (!$produtos) {
     exit;
 }
 
+$stmt = $conn->prepare("
+    SELECT p.*, c.nome AS categoria_nome
+    FROM produtos p
+    LEFT JOIN categorias c ON p.categoria_id = c.id
+    WHERE p.id = ?
+");
+$stmt->execute([$produtoId]);
+$produtos = $stmt->fetch(PDO::FETCH_ASSOC);
+
 $stmt = $conn->prepare("SELECT * FROM categorias");
 $stmt->execute();
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-
 $stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
 $config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
 
+$nomeEmpresa = !empty($config['nome_empresa']) ? htmlspecialchars($config['nome_empresa']) : 'Minha Empresa';
 $logo = !empty($config['logo'])
     ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
     : 'images/default.png';
@@ -39,12 +48,11 @@ $totalCarrinho = 0;
 $usuario = null;
 
 if (isset($_SESSION['usuario_id'])) {
-    $usuarioId = $_SESSION['usuario_id'];
 
-    $stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :uid");
-    $stmt->bindValue(':uid', $usuarioId);
+    $stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = :id");
+    $stmt->bindValue(':id', $_SESSION['usuario_id']);
     $stmt->execute();
-    $carrinho = $stmt->fetchAll();
+    $carrinho = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $totalCarrinho = count($carrinho);
 
@@ -72,7 +80,7 @@ $imagemSrc = (!isset($produtos['imagem_principal']) || trim($produtos['imagem_pr
 
 <head>
     <meta charset="UTF-8">
-    <title><?= htmlspecialchars($produtos['nome']) ?> - Quebra Galho</title>
+    <title><?= htmlspecialchars($produtos['nome']) ?> - <?= $nomeEmpresa ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="<?= $logo ?>">
     <link rel="shortcut icon" href="<?= $logo ?>">
@@ -87,13 +95,10 @@ $imagemSrc = (!isset($produtos['imagem_principal']) || trim($produtos['imagem_pr
     <?php include 'includes/index/nav/menu-sm.php'; ?>
     <?php include 'includes/index/nav/nav-xl.php'; ?>
 
-    <?php include 'includes/produto/carrinho.php'; ?>
-
     <?php include 'includes/produto/produto.php'; ?>
 
     <script>
         const isLoggedIn = <?= isset($_SESSION['usuario_documento']) ? 'true' : 'false' ?>;
-        const totalCarrinho = <?= $totalCarrinho ?>;
     </script>
     <script src="js/conta/link.js"></script>
     <script src="js/carrinho/excluir_carrinho.js"></script>

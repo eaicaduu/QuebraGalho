@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (typeof isLoggedIn !== "undefined" && isLoggedIn) {
         window.location.href = "carrinho.php";
       } else {
-        event.preventDefault(); 
-        
+        event.preventDefault();
+
         Swal.fire({
           icon: "warning",
           title: "Ops!",
@@ -25,18 +25,5 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       }
     });
-
-    if (typeof totalCarrinho !== "undefined" && totalCarrinho > 0) {
-      const iconDiv = link.querySelector(".position-relative");
-
-      if (iconDiv && !iconDiv.querySelector(".carrinho-contador-badge")) {
-        const badge = document.createElement("span");
-        
-        badge.className = "carrinho-contador-badge position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger";
-        badge.textContent = totalCarrinho;
-        
-        iconDiv.appendChild(badge);
-      }
-    }
   });
 });

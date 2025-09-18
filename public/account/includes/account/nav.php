@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-transparent mb-2">
     <div class="container d-flex align-items-center justify-content-between position-relative">
 
-        <a href="index.php">
+        <a href="../index.php">
             <button class="btn btn-link text-decoration-none text-dark p-0">
                 <i class="bi bi-arrow-left-circle pe-none" style="font-size: 1.8rem;"></i>
             </button>
