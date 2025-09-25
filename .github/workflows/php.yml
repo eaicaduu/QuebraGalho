@@ -18,7 +18,7 @@ jobs:
         with:
           server: ftp.web22f50.kinghost.net
           username: quebragalhoferragem
-          password: ferragemQG0305
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /www/
-          port: 21
+          port: 22
