@@ -43,7 +43,7 @@ $basePath = '';
 
 <head>
     <meta charset="UTF-8">
-    <title>Segurança</title>
+    <title>Segurança - Quebra Galho</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="<?= $logo ?>">
     <link rel="shortcut icon" href="<?= $logo ?>">

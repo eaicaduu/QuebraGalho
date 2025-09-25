@@ -47,6 +47,8 @@
                 include __DIR__ . '/../categorias/options.php';
             } elseif ($paginaAtual === 'produtos_geral.php') {
                 include __DIR__ . '/../geral/options.php';
+            } elseif ($paginaAtual === 'produtos_detalhes.php') {
+                include __DIR__ . '/../geral/options.php';
             } else {
                  include __DIR__ . '/options.php';
             }?>

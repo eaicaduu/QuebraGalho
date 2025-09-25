@@ -20,11 +20,14 @@
 
     $stmtMarcas = $conn->query("SELECT DISTINCT marca FROM produtos WHERE marca IS NOT NULL AND marca != '' ORDER BY marca ASC");
     $marcas = $stmtMarcas->fetchAll(PDO::FETCH_ASSOC);
-    
+
     $produtos = [];
     $categoria_nome = '';
 
-    if ($categoria_id) {
+    $produtos = [];
+    $categoria_nome = '';
+
+    if (!empty($categoria_id)) {
         $stmtCat = $conn->prepare("SELECT nome FROM categorias WHERE id = ?");
         $stmtCat->execute([$categoria_id]);
         $categoria = $stmtCat->fetch(PDO::FETCH_ASSOC);
@@ -32,18 +35,26 @@
         if ($categoria) {
             $categoria_nome = $categoria['nome'];
             $stmt = $conn->prepare("
-                SELECT *
-                FROM produtos
-                WHERE categoria_id = ?
-                AND status = 1
-            ");
+            SELECT * 
+            FROM produtos 
+            WHERE categoria_id = ? 
+              AND status = 1
+        ");
             $stmt->execute([$categoria_id]);
             $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         } else {
             $categoria_nome = 'Categoria não encontrada';
         }
     } else {
-        $categoria_nome = 'Categoria não especificada';
+        $categoria_nome = 'Todos os produtos';
+        $stmt = $conn->prepare("
+        SELECT * 
+        FROM produtos 
+        WHERE status = 1
+        ORDER BY id ASC
+    ");
+        $stmt->execute();
+        $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     $totalCarrinho = 0;
@@ -95,8 +106,14 @@
 
         <?php include 'includes/categoria/produtos.php'; ?>
 
+        <script>
+            const isLoggedIn = <?= isset($_SESSION['usuario_documento']) ? 'true' : 'false' ?>;
+        </script>
+        <script src="js/carrinho/buscar_carrinho.js"></script>
+        <script src="js/conta/link.js"></script>
         <script src="js/conta/link.js"></script>
         <script src="js/categorias/select_categorias_filtro.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 

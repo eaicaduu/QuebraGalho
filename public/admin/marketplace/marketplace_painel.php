@@ -1,11 +1,12 @@
 <?php
-require_once __DIR__ . '/../../../app/config/database.php';
 session_start();
 
 if (!isset($_SESSION['usuario_tipo']) || !in_array($_SESSION['usuario_tipo'], [2, 3])) {
     header("Location: ../../index.php");
     exit();
 }
+
+require_once __DIR__ . '/../../../app/config/database.php';
 
 $db = new Database();
 $conn = $db->getConnection();

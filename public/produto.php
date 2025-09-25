@@ -37,11 +37,25 @@ $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
 $config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
 
+$stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
+$config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
+
 $nomeEmpresa = !empty($config['nome_empresa']) ? htmlspecialchars($config['nome_empresa']) : 'Minha Empresa';
+$corPrincipal = !empty($config['cor_principal']) ? htmlspecialchars($config['cor_principal']) : '#000000';
 $logo = !empty($config['logo'])
     ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
     : 'images/default.png';
-
+$telefoneEmpresa = !empty($config['telefone']) ? htmlspecialchars($config['telefone']) : '';
+$telefoneSecundarioEmpresa = !empty($config['telefone_secundario']) ? htmlspecialchars($config['telefone_secundario']) : '';
+$emailEmpresa = !empty($config['email']) ? htmlspecialchars($config['email']) : 'contato@empresa.com';
+$enderecoEmpresa = !empty($config['endereco']) ? htmlspecialchars($config['endereco']) : '';
+$mapsEmpresa = !empty($config['maps']) ? htmlspecialchars($config['maps']) : '#';
+$descricaoEmpresa = !empty($config['descricao'])
+    ? htmlspecialchars($config['descricao'])
+    : 'Descrição Da Empresa.';
+$facebook = !empty($config['facebook']) ? htmlspecialchars($config['facebook']) : '#';
+$instagram = !empty($config['instagram']) ? htmlspecialchars($config['instagram']) : '#';
+$whatsapp = !empty($config['whatsapp']) ? htmlspecialchars($config['whatsapp']) : '#';
 
 $carrinho = [];
 $totalCarrinho = 0;
@@ -89,13 +103,15 @@ $imagemSrc = (!isset($produtos['imagem_principal']) || trim($produtos['imagem_pr
     <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="user-select: none; background-color: <?= $corPrincipal ?>;">
 
     <?php include 'includes/index/nav/nav-sm.php'; ?>
     <?php include 'includes/index/nav/menu-sm.php'; ?>
     <?php include 'includes/index/nav/nav-xl.php'; ?>
 
     <?php include 'includes/produto/produto.php'; ?>
+
+    <?php include 'includes/index/footer.php'; ?>
 
     <script>
         const isLoggedIn = <?= isset($_SESSION['usuario_documento']) ? 'true' : 'false' ?>;

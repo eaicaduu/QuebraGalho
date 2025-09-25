@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     icon: "success",
                     title: "Atualizado!",
                     text: `A categoria foi ${status === 1 ? "ativada" : "desativada"} com sucesso.`,
-                    timer: 2000,
+                    timer: 3000,
                     confirmButtonColor: "#28a745"
                 });
             } else {

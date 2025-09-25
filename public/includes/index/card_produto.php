@@ -1,10 +1,3 @@
-<?php
-$imagemSrc = (!isset($produto['imagem_principal']) || trim($produto['imagem_principal']) === '')
-    ? "images/default.png"
-    : "../app/uploads/produtos/" . $produto['imagem_principal'];
-$produtoUrl = "produto.php?id=" . $produto['id'];
-?>
-
 <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
     <div class="card h-100 shadow-sm border bg-light rounded-4 product-card position-relative overflow-hidden"
         role="button" onclick="window.location.href='<?= $produtoUrl ?>';" style="transition: transform 0.2s;">

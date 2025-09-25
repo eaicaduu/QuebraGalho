@@ -1,29 +1,22 @@
 <?php
-require_once __DIR__ . '/../app/config/database.php';
 session_start();
+
+if (!isset($_SESSION['config'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+$config = $_SESSION['config'] ?? [];
+$modo_site = $config['modo_site'] ?? 1;
+
+if ($modo_site == 0) {
+    include __DIR__ . '/includes/index/acesso.php';
+}
+
+require_once __DIR__ . '/../app/config/database.php';
 
 $db = new Database();
 $conn = $db->getConnection();
-
-$stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
-$config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
-
-$nomeEmpresa = !empty($config['nome_empresa']) ? htmlspecialchars($config['nome_empresa']) : 'Minha Empresa';
-$corPrincipal = !empty($config['cor_principal']) ? htmlspecialchars($config['cor_principal']) : '#000000';
-$logo = !empty($config['logo'])
-    ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
-    : 'images/default.png';
-$telefoneEmpresa = !empty($config['telefone']) ? htmlspecialchars($config['telefone']) : '';
-$telefoneSecundarioEmpresa = !empty($config['telefone_secundario']) ? htmlspecialchars($config['telefone_secundario']) : '';
-$emailEmpresa = !empty($config['email']) ? htmlspecialchars($config['email']) : 'contato@empresa.com';
-$enderecoEmpresa = !empty($config['endereco']) ? htmlspecialchars($config['endereco']) : '';
-$mapsEmpresa = !empty($config['maps']) ? htmlspecialchars($config['maps']) : '#';
-$descricaoEmpresa = !empty($config['descricao'])
-    ? htmlspecialchars($config['descricao'])
-    : 'Descrição Da Empresa.';
-$facebook = !empty($config['facebook']) ? htmlspecialchars($config['facebook']) : '#';
-$instagram = !empty($config['instagram']) ? htmlspecialchars($config['instagram']) : '#';
-$whatsapp = !empty($config['whatsapp']) ? htmlspecialchars($config['whatsapp']) : '#';
 
 $stmt = $conn->prepare("SELECT * FROM produtos WHERE status = 1 AND destaque = 0 ORDER BY id ASC LIMIT 12");
 $stmt->execute();
@@ -73,7 +66,7 @@ if (isset($_SESSION['usuario_id'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title><?= $nomeEmpresa ?></title>
+    <title><?= $config['nomeEmpresa'] ?></title>
     <meta name="description" content="A Quebra Galho Ferragem oferece os melhores produtos em ferramentas, elétrica, hidráulica e construção. Atendimento rápido, produtos de qualidade e os melhores preços da região.">
     <meta name="keywords" content="ferragem, materiais de construção, ferramentas, elétrica, hidráulica, parafusos, porcas, pregos, cimento, tinta, construção, loja de ferragens">
     <meta name="author" content="Quebra Galho Ferragem">
@@ -85,8 +78,8 @@ if (isset($_SESSION['usuario_id'])) {
     <meta property="og:type" content="website">
     <meta property="og:locale" content="pt_BR">
     <link rel="canonical" href="https://quebragalhoferragem.com.br/">
-    <link rel="icon" type="image/png" href="<?= $logo ?>">
-    <link rel="shortcut icon" href="<?= $logo ?>">
+    <link rel="icon" type="image/png" href="<?= $config['logo'] ?>">
+    <link rel="shortcut icon" href="<?= $config['logo'] ?>">
     <link href="bootstrap-5.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="bootstrap-icons-1.13.1/bootstrap-icons.css" rel="stylesheet">
@@ -96,7 +89,7 @@ if (isset($_SESSION['usuario_id'])) {
 <style>
 </style>
 
-<body style="user-select: none; background-color: <?= $corPrincipal ?>;">
+<body style="user-select: none; background-color: <?= $config['corPrincipal'] ?>;">
 
     <?php include 'includes/index/nav/nav-xl.php'; ?>
     <?php include 'includes/index/nav/menu-sm.php'; ?>
@@ -116,11 +109,11 @@ if (isset($_SESSION['usuario_id'])) {
         const isLoggedIn = <?= isset($_SESSION['usuario_documento']) ? 'true' : 'false' ?>;
     </script>
     <script src="js/conta/link.js"></script>
+    <script src="js/index/acesso.js"></script>
     <script src="js/categorias/categorias.js"></script>
     <script src="js/carrinho/buscar_carrinho.js"></script>
     <script src="js/favoritos/salvar_favoritos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

@@ -56,7 +56,14 @@ if ($q !== '') {
     $stmtTotal = $conn->query("SELECT COUNT(*) FROM produtos");
     $totalProdutos = $stmtTotal->fetchColumn();
 
-    $stmt = $conn->prepare("SELECT * FROM produtos ORDER BY RAND() LIMIT :limite OFFSET :offset");
+    $stmt = $conn->prepare("
+        SELECT * FROM produtos 
+        ORDER BY RAND() 
+        LIMIT :limite OFFSET :offset
+    ");
+    $stmt->bindValue(':limite', $limite, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    $stmt->execute();
 }
 
 $totalPaginas = ceil($totalProdutos / $limite);

@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
         } else {
-          tabelaBody.innerHTML = data.html;
+          if (!storagePrefix) { tabelaBody.innerHTML = data.html; }
         }
 
         paginaAtual = pagina;
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function atualizarPaginacao(totalPaginas) {
 
-    if (totalPaginas <= 5 || !totalPaginas) {
+    if (totalPaginas <= 1 || storagePrefix) {
       paginacaoContainer.innerHTML = "";
       return;
     }
@@ -52,26 +52,17 @@ document.addEventListener("DOMContentLoaded", () => {
     let start = Math.max(1, paginaAtual - Math.floor(maxLinks / 2));
     let end = Math.min(totalPaginas, start + maxLinks - 1);
 
-    if (start > 1) {
-      html += `<li class="page-item"><a class="page-link" href="#" data-pagina="1">1</a></li>`;
-    }
+    if (start > 1) html += `<li class="page-item"><a class="page-link" href="#" data-pagina="1">1</a></li>`;
 
     for (let i = start; i <= end; i++) {
-      html += `
-        <li class="page-item ${i === paginaAtual ? 'active' : ''}">
-          <a class="page-link" href="#" data-pagina="${i}">${i}</a>
-        </li>`;
+      html += `<li class="page-item ${i === paginaAtual ? "active" : ""}">
+               <a class="page-link" href="#" data-pagina="${i}">${i}</a>
+             </li>`;
     }
 
-    if (end < totalPaginas) {
-      html += `<li class="page-item"><a class="page-link" href="#" data-pagina="${totalPaginas}">${totalPaginas}</a></li>`;
-    }
+    if (end < totalPaginas) html += `<li class="page-item"><a class="page-link" href="#" data-pagina="${totalPaginas}">${totalPaginas}</a></li>`;
 
-    html += `
-          </ul>
-        </nav>
-      </form>
-    `;
+    html += `</ul></nav></form>`;
 
     paginacaoContainer.innerHTML = html;
 
@@ -79,11 +70,30 @@ document.addEventListener("DOMContentLoaded", () => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const pagina = parseInt(link.dataset.pagina);
-        if (!isNaN(pagina)) {
-          carregarPagina(pagina);
-        }
+        if (!isNaN(pagina)) carregarPagina(pagina);
       });
     });
+
+    document.getElementById("limite").addEventListener("change", (e) => {
+      limite = parseInt(e.target.value);
+      localStorage.setItem(storagePrefix + "_limite", limite);
+      carregarPagina(1);
+    });
+
+    html += `</form>`;
+    paginacaoContainer.innerHTML = html;
+
+    if (totalPaginas > 1) {
+      document.querySelectorAll(".pagination .page-link").forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const pagina = parseInt(link.dataset.pagina);
+          if (!isNaN(pagina)) {
+            carregarPagina(pagina);
+          }
+        });
+      });
+    }
 
     document.getElementById("limite").addEventListener("change", (e) => {
       limite = parseInt(e.target.value);

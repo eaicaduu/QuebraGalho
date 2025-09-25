@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const tabelaBody = document.getElementById("categorias-body");
   const paginacaoContainer = document.getElementById("paginacao-container");
-  const storagePrefix = "produtos_" + window.location.pathname.replace(/\//g, "_");
+  const storagePrefix = "categorias_" + window.location.pathname.replace(/\//g, "_");
   let limite = parseInt(localStorage.getItem(storagePrefix + "_limite")) || 10;
   let paginaAtual = parseInt(localStorage.getItem(storagePrefix + "_pagina")) || 1;
 
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (data.html.trim() === "") {
           tabelaBody.innerHTML = `
         <div class="alert container p-4 rounded d-flex align-items-center justify-content-center bg-body-secondary text-center">
-          <i class="bi bi-emoji-frown me-2"></i><span>Nenhum produto cadastrado.</span>
+          <i class="bi bi-emoji-frown me-2"></i><span>Nenhuma categoria cadastrada.</span>
         </div>
       `;
         } else {
@@ -26,10 +26,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function atualizarPaginacao(totalPaginas) {
+
+    if (totalPaginas <= 1 || storagePrefix) {
+      paginacaoContainer.innerHTML = "";
+      return;
+    }
+
     let html = `
     <form method="get" class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-2" onsubmit="return false;">
       <div>
-        <label for="limite" class="form-label mb-0 me-2">Produtos por página:</label>
+        <label for="limite" class="form-label mb-0 me-2">Categorias por página:</label>
         <select id="limite" class="form-select form-select-sm d-inline-block w-auto">
           <option value="10" ${limite === 10 ? "selected" : ""}>10</option>
           <option value="20" ${limite === 20 ? "selected" : ""}>20</option>
@@ -38,38 +44,39 @@ document.addEventListener("DOMContentLoaded", () => {
           <option value="5000" ${limite === 5000 ? "selected" : ""}>5000</option>
         </select>
       </div>
-  `;
+      <nav><ul class="pagination mb-0">`;
 
-    if (totalPaginas > 1) {
-      html += `
-      <nav>
-        <ul class="pagination mb-0">
-    `;
+    const maxLinks = 5;
+    let start = Math.max(1, paginaAtual - Math.floor(maxLinks / 2));
+    let end = Math.min(totalPaginas, start + maxLinks - 1);
 
-      const maxLinks = 5;
-      let start = Math.max(1, paginaAtual - Math.floor(maxLinks / 2));
-      let end = Math.min(totalPaginas, start + maxLinks - 1);
+    if (start > 1) html += `<li class="page-item"><a class="page-link" href="#" data-pagina="1">1</a></li>`;
 
-      if (start > 1) {
-        html += `<li class="page-item"><a class="page-link" href="#" data-pagina="1">1</a></li>`;
-      }
-
-      for (let i = start; i <= end; i++) {
-        html += `
-        <li class="page-item ${i === paginaAtual ? "active" : ""}">
-          <a class="page-link" href="#" data-pagina="${i}">${i}</a>
-        </li>`;
-      }
-
-      if (end < totalPaginas) {
-        html += `<li class="page-item"><a class="page-link" href="#" data-pagina="${totalPaginas}">${totalPaginas}</a></li>`;
-      }
-
-      html += `
-        </ul>
-      </nav>
-    `;
+    for (let i = start; i <= end; i++) {
+      html += `<li class="page-item ${i === paginaAtual ? "active" : ""}">
+               <a class="page-link" href="#" data-pagina="${i}">${i}</a>
+             </li>`;
     }
+
+    if (end < totalPaginas) html += `<li class="page-item"><a class="page-link" href="#" data-pagina="${totalPaginas}">${totalPaginas}</a></li>`;
+
+    html += `</ul></nav></form>`;
+
+    paginacaoContainer.innerHTML = html;
+
+    document.querySelectorAll(".pagination .page-link").forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const pagina = parseInt(link.dataset.pagina);
+        if (!isNaN(pagina)) carregarPagina(pagina);
+      });
+    });
+
+    document.getElementById("limite").addEventListener("change", (e) => {
+      limite = parseInt(e.target.value);
+      localStorage.setItem(storagePrefix + "_limite", limite);
+      carregarPagina(1);
+    });
 
     html += `</form>`;
     paginacaoContainer.innerHTML = html;

@@ -12,7 +12,7 @@
             <span class="ms-2 text-dark">Favoritos</span>
         </span>
 
-        <img src="<?= $logo ?>" class="pe-none" height="50">
+        <img src="<?= $logo ?>" class="pe-none d-none d-lg-flex" height="50">
 
         <?php include('includes/menu-mobile.php'); ?>
     </div>

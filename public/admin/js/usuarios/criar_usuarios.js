@@ -35,33 +35,105 @@ document.addEventListener("DOMContentLoaded", () => {
                     return false;
                 }
 
+                if (!isValidEmail(email)) {
+                    Swal.showValidationMessage("E-mail inválido. Insira um e-mail com '@' e domínio válido.");
+                    return false;
+                }
+
+                if (!isValidDocumento(documento)) {
+                    Swal.showValidationMessage("Documento inválido. Insira um CPF (11 dígitos) ou CNPJ (14 dígitos) corretos.");
+                    return false;
+                }
+
                 return { nome, documento, email, tipo_usuario };
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch("../../../app/models/usuarios/criar_usuario.php", {
+                fetch("../../../app/models/usuarios/criar_usuarios.php", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(result.value),
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire("Sucesso", data.message, "success")
-                            .then(() => location.reload());
-                    } else {
-                        Swal.fire("Erro", data.message || "Erro ao criar o usuário", "error");
-                    }
-                });
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            Swal.fire("Sucesso", data.message, "success")
+                                .then(() => location.reload());
+                        } else {
+                            Swal.fire("Erro", data.message || "Erro ao criar o usuário", "error");
+                        }
+                    });
             }
         });
     });
 });
 
+function onlyDigits(str) {
+    return (str || '').replace(/\D+/g, '');
+}
+
+function isValidEmail(email) {
+    if (!email) return false;
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function isValidCPF(cpf) {
+    cpf = onlyDigits(cpf);
+    if (cpf.length !== 11) return false;
+    if (/^(\d)\1{10}$/.test(cpf)) return false;
+
+    const calcCheck = (digits) => {
+        let sum = 0;
+        for (let i = 0; i < digits.length; i++) {
+            sum += parseInt(digits.charAt(i), 10) * (digits.length + 1 - i);
+        }
+        const r = sum % 11;
+        return r < 2 ? 0 : 11 - r;
+    };
+
+    const d1 = calcCheck(cpf.substr(0, 9));
+    const d2 = calcCheck(cpf.substr(0, 9) + d1);
+    return d1 === parseInt(cpf.charAt(9), 10) && d2 === parseInt(cpf.charAt(10), 10);
+}
+
+function isValidCNPJ(cnpj) {
+    cnpj = onlyDigits(cnpj);
+    if (cnpj.length !== 14) return false;
+    if (/^(\d)\1{13}$/.test(cnpj)) return false;
+
+    const calc = (cnpjSlice, positions) => {
+        let sum = 0;
+        for (let i = 0; i < cnpjSlice.length; i++) {
+            sum += parseInt(cnpjSlice.charAt(i), 10) * positions[i];
+        }
+        const r = sum % 11;
+        return r < 2 ? 0 : 11 - r;
+    };
+
+    // posições para o cálculo
+    const pos1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    const pos2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    const slice12 = cnpj.substr(0, 12);
+    const v1 = calc(slice12, pos1);
+    const v2 = calc(slice12 + v1, pos2);
+
+    return v1 === parseInt(cnpj.charAt(12), 10) && v2 === parseInt(cnpj.charAt(13), 10);
+}
+
+function isValidDocumento(doc) {
+    const digits = onlyDigits(doc);
+    if (digits.length === 11) return isValidCPF(digits);
+    if (digits.length === 14) return isValidCNPJ(digits);
+    return false;
+}
+
+
 function formatarDocumento(valor) {
     let doc = valor.replace(/\D/g, "");
 
-    if (doc.length <= 11) { 
+    if (doc.length <= 11) {
         doc = doc.substring(0, 11);
         if (doc.length > 9) {
             return doc.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, "$1.$2.$3-$4");
@@ -72,7 +144,7 @@ function formatarDocumento(valor) {
         } else {
             return doc;
         }
-    } else { 
+    } else {
         doc = doc.substring(0, 14);
         if (doc.length > 12) {
             return doc.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{0,2})/, "$1.$2.$3/$4-$5");

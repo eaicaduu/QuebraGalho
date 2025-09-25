@@ -15,15 +15,37 @@ $usuario_id = $_SESSION['usuario_id'];
 $stmtConfig = $conn->query("SELECT * FROM configuracao LIMIT 1");
 $config = $stmtConfig->fetch(PDO::FETCH_ASSOC);
 
+$nomeEmpresa = !empty($config['nome_empresa']) ? htmlspecialchars($config['nome_empresa']) : 'Minha Empresa';
 $logo = !empty($config['logo'])
   ? '../app/uploads/logo/' . htmlspecialchars($config['logo'])
   : 'images/default.png';
 
-
-$stmt = $conn->prepare("SELECT * FROM carrinho WHERE usuario_id = ? AND status = 0");
+$stmt = $conn->prepare("
+    SELECT 
+        c.id AS carrinho_id, 
+        c.quantidade AS quantidade_carrinho, 
+        c.preco_unitario,
+        p.id AS produto_id, 
+        p.nome, 
+        p.cod_sku, 
+        p.preco,
+        p.imagem_principal,
+        p.preco_promocional,
+        p.promocao,
+        p.quantidade AS quantidade_produto
+    FROM carrinho c
+    INNER JOIN produtos p ON c.produto_id = p.id
+    WHERE c.usuario_id = ? AND c.status = 0
+    ORDER BY c.id DESC
+");
 $stmt->execute([$usuario_id]);
 $itens_carrinho = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$totalProdutos = count($itens_carrinho);
 $total = 0;
+foreach ($itens_carrinho as $item) {
+  $total += $item['preco_unitario'] * $item['quantidade_carrinho'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +53,7 @@ $total = 0;
 
 <head>
   <meta charset="UTF-8">
-  <title>Carrinho - Quebra Galho</title>
+  <title>Carrinho - <?= $nomeEmpresa ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="<?= $logo ?>">
   <link rel="shortcut icon" href="<?= $logo ?>">
@@ -46,6 +68,9 @@ $total = 0;
 
   <?php include 'includes/carrinho/carrinho.php'; ?>
 
+  <script src="js/carrinho/finalizar_carrinho.js"></script>
+  <script src="js/carrinho/resumo_carrinho.js"></script>
+  <script src="js/carrinho/quantidade_carrinho.js"></script>
   <script src="js/carrinho/produtos_carrinho.js"></script>
   <script src="js/carrinho/excluir_carrinho.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

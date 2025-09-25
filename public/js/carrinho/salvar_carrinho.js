@@ -4,12 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const quantidadeTexto = document.getElementById("quantidadeTexto");
   const icon = btnEditarQuantidade.querySelector("i");
 
-  async function adicionarAoCarrinho(idProduto, quantidade = 1) {
+  async function adicionarAoCarrinho(idProduto, quantidade = 1, precoUnitario = 0) {
     try {
       const resposta = await fetch("../app/models/carrinho/salvar_carrinho.php", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `produto_id=${encodeURIComponent(idProduto)}&quantidade=${encodeURIComponent(quantidade)}`
+        body: `produto_id=${encodeURIComponent(idProduto)}&quantidade=${encodeURIComponent(quantidade)}&preco_unitario=${encodeURIComponent(precoUnitario)}`
       });
 
       const resultado = await resposta.json();
@@ -72,8 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".btn-carrinho").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      const idProduto = btn.getAttribute("data-id");
-      const quantidade = selectQuantidade ? selectQuantidade.value : 1;
 
       if (!isLoggedIn) {
         Swal.fire({
@@ -91,7 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         return;
       }
-      adicionarAoCarrinho(idProduto, quantidade);
+      const idProduto = btn.getAttribute("data-id");
+      const quantidade = selectQuantidade ? selectQuantidade.value : 1;
+      const precoUnitario = btn.getAttribute("data-preco");
+
+      adicionarAoCarrinho(idProduto, quantidade, precoUnitario);
     });
   });
 

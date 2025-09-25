@@ -16,7 +16,7 @@
       </li>
     </ul>
 
-    <img src="<?= $logo ?>" height="50" class="pe-none user-select-none">
+    <img src="<?= $config['logo'] ?>" height="50" class="pe-none user-select-none" onclick="">
 
     <ul class="navbar-nav d-flex flex-row align-items-center">
       <li class="nav-item mx-2">

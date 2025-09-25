@@ -19,7 +19,7 @@
         <a href="cadastro.php" class="btn btn-sm btn-success">Criar Conta</a>
       </div>
     <?php endif; ?>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas"></button>
   </div>
 
   <div class="offcanvas-body p-0">

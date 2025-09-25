@@ -31,11 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
 
             if (data.success) {
-              Swal.fire(
-                "Removido!",
-                "Produto removido do carrinho.",
-                "success"
-              ).then(() => {
+              Swal.fire({
+                title: "Removido!",
+                text: "Produto removido do carrinho.",
+                icon: "success",
+                timer: 3000,
+                confirmButtonColor: "#198754",
+              }).then(() => {
                 location.reload();
               });
             } else {

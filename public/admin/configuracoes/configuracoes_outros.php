@@ -16,6 +16,7 @@ $conn = $db->getConnection();
 $stmt = $conn->query("SELECT * FROM configuracao LIMIT 1");
 $config = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$modo_site = $config['modo_site'] ?? 1;
 $nomeEmpresa        = $config['nome_empresa'] ?? '';
 $cor_principal       = $config['cor_principal'] ?? '#000000';
 $logo                = !empty($config['logo'])
@@ -44,6 +45,7 @@ $logo                = !empty($config['logo'])
 
     <?php include 'includes/painel/cards.php'; ?>
 
+    <script src="../js/configuracoes/outros/modo_site.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../../bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
 </body>

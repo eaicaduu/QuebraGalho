@@ -1,10 +1,13 @@
 function redirecionarCategoria(select) {
     const categoria = select.value;
-    if (categoria) {
-        window.location.href = "categoria.php?categoria=" + encodeURIComponent(categoria);
+    const params = new URLSearchParams(window.location.search);
+
+    if (categoria === "") {
+        params.delete('categoria');
     } else {
-        window.location.href = "categoria.php";
+        params.set('categoria', categoria);
     }
+    window.location.search = params.toString();
 }
 
 function redirecionarMarca(select) {

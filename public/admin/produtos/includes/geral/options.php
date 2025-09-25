@@ -3,7 +3,7 @@
 
         <div class="col-12 col-md-4">
             <div class="position-relative w-100">
-                <input type="text" id="searchProduto" class="form-control px-5 rounded-pill shadow-sm w-100"
+                <input type="text" id="searchProdutos" class="form-control px-5 rounded-pill shadow-sm w-100"
                     placeholder="Pesquisar produto...">
                 <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
                 <i id="clearSearch"

@@ -1,98 +1,71 @@
 <div class="card produto-item mb-3 bg-light shadow-sm p-2" data-produto-id="<?= $produto['id'] ?>">
     <div class="d-flex flex-column gap-2">
 
-        <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center justify-content-center gap-3">
 
-            <div class="position-relative flex-shrink-0" style="width: 70px; height: 70px;">
-                <img src="<?= $imagemSrc ?>" alt="Imagem do produto"
-                    class="rounded w-100 h-100 object-fit-cover produto-imagem">
-                <button type="button"
-                    class="btn btn-light btn-sm rounded-circle shadow position-absolute top-0 end-0 p-1 alterar-imagem"
-                    style="font-size: 1rem; line-height: 1; background: rgba(255,255,255,0.9);" title="Alterar imagem">
-                    <i class="bi bi-camera-fill text-primary"></i>
-                </button>
-            </div>
-
-            <div class="d-flex flex-column flex-lg-row flex-wrap small text-muted w-100 gap-2">
-                <div class="d-flex justify-content-between">
-                    <p class="mb-0" title="Id do produto">
-                        Id: <?= $produto['id'] ?>
-                    </p>
-                    <p class="mb-0 ms-2" title="SKU do produto">
-                        SKU: <?= !empty($produto['cod_sku']) ? sprintf('%05d', $produto['cod_sku']) : 'Sem SKU' ?>
-                    </p>
-                    <div class="d-flex">
-                        <input class="form-check-input promocao-produto" type="checkbox" name="promocao-produto"
-                            id="promo-<?= $produto['id'] ?>" <?= !empty($produto['promocao']) && $produto['promocao'] == 1 ? 'checked' : '' ?>>
-                        <label class="form-check-label ms-1" for="promo-<?= $produto['id'] ?>">
-                            Promoção
-                        </label>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p class="mb-0" title="GTIN do produto">
-                        GTIN: <?= (empty($produto['cod_barras']) || strtoupper($produto['cod_barras']) === 'SEM GTIN')
-                                    ? 'Sem GTIN'
-                                    : htmlspecialchars($produto['cod_barras']) ?>
-                    </p>
-                    <div class="d-flex">
-                        <input class="form-check-input destaque-produto" type="checkbox" name="destaque-produto"
-                            id="destaque-<?= $produto['id'] ?>" <?= !empty($produto['destaque']) && $produto['destaque'] == 1 ? 'checked' : '' ?>>
-                        <label class="form-check-label ms-1" for="destaque-<?= $produto['id'] ?>">
-                            Destaque
-                        </label>
-                    </div>
-                </div>
-                <p class="mb-0" title="Data de cadastro">
-                    Data de cadastro: <?= (new DateTime($produto['criado_em']))->format('d/m/Y') ?>
-                </p>
+            <div class="text-center d-flex">
+                <p class="mb-0 text-muted small" title="Nome do produto"><strong><?= htmlspecialchars($produto['nome']) ?></strong></p>
             </div>
         </div>
 
         <div class="d-flex w-100">
-            <input type="text" name="nome-produto" value="<?= htmlspecialchars($produto['nome']) ?>"
-                class="form-control form-control-sm nome-produto" placeholder="Nome do produto" maxlength="100">
-            <input type="text" maxlength="4" name="desconto-percentual-<?= $produto['id'] ?>"
-                class="form-control ms-2 ms-lg-0 form-control-sm desconto-percentual" placeholder="%"
-                style="width: 70px; display: <?= (!empty($produto['promocao']) && $produto['promocao'] == 1) ? 'block' : 'none' ?>;"
-                value="<?= isset($produto['desconto_percentual']) && $produto['desconto_percentual'] !== ''
-                            ? rtrim(rtrim(number_format($produto['desconto_percentual'], 2, '.', ''), '0'), '.') . '%'
-                            : '' ?>">
-        </div>
-
-        <div class="d-flex w-100">
-            <input type="text" name="desc_curta" value="<?= htmlspecialchars($produto['desc_curta']) ?>"
-                class="form-control form-control-sm desc_curta" placeholder="Descrição curta" title="Descrição curta do produto"
-                maxlength="100">
+            <div style="width: 100px;">
+                <input type="text"
+                    class="form-control form-control-sm"
+                    id="cod_ref_<?= $produto['id'] ?>"
+                    name="cod_ref"
+                    value="<?= ($produto['cod_ref'] ?? 0) == 0 ? '' : htmlspecialchars($produto['cod_ref']) ?>"
+                    placeholder="Referência">
+            </div>
         </div>
 
         <div class="d-flex justify-content-between w-100">
-            <select name="status-produto" class="form-select form-select-sm w-25 status-produto" title="Status do produto">
-                <option value="1" <?= $produto['status'] ? 'selected' : '' ?>>Ativo</option>
-                <option value="0" <?= !$produto['status'] ? 'selected' : '' ?>>Inativo</option>
-            </select>
-            <input type="text" name="preco-produto"
-                class="form-control form-control-sm ms-2 w-25 preco-produto"
-                value="R$<?= number_format((float) $produto['preco'], 2, ',', '.') ?>"
-                style="<?= (!empty($produto['promocao']) && $produto['promocao'] == 1) ? 'text-decoration: line-through; color: #888;' : '' ?>"
-                placeholder="Preço do produto" title="Preço do produto"
-                class="form-control form-control-sm ms-2 w-25 preco-produto" placeholder="Preço do produto"
-                title="Preço do produto">
-            <input type="text"
-                name="preco_pj"
-                class="form-control form-control-sm ms-2 w-25 preco-pj"
-                value="<?= $produto['preco_pj'] > 0 ? 'R$' . number_format((float) $produto['preco_pj'], 2, ',', '.') : '' ?>"
-                placeholder="Preço PJ"
-                title="Preço para PJ">
-            <input type="text" name="preco-promocional-<?= $produto['id'] ?>"
-                class="form-control form-control-sm ms-2 w-25 preco-promocional" placeholder="Preço promocional"
-                style="display: <?= (!empty($produto['promocao']) && $produto['promocao'] == 1) ? 'block' : 'none' ?>;" value="<?= !empty($produto['preco_promocional'])
-                                                                                                                                    ? 'R$' . number_format((float) $produto['preco_promocional'], 2, ',', '.')
-                                                                                                                                    : 'R$' . number_format((float) $produto['preco'], 2, ',', '.') ?>">
+            <div style="width: 70px;">
+                <input type="text"
+                    class="form-control form-control-sm"
+                    id="id_<?= $produto['id'] ?>"
+                    name="id"
+                    value="<?= ($produto['id'] ?? 0) == 0 ? '' : htmlspecialchars($produto['id']) ?>"
+                    placeholder="ID">
+            </div>
+
+            <div style="width: 70px;">
+                <input type="text"
+                    class="form-control form-control-sm"
+                    id="cod_sku_<?= $produto['id'] ?>"
+                    name="cod_sku"
+                    value="<?= ($produto['cod_sku'] ?? 0) == 0 ? '' : htmlspecialchars($produto['cod_sku']) ?>"
+                    placeholder="SKU">
+            </div>
+
+            <div style="width: 130px;">
+                <input type="text"
+                    class="form-control form-control-sm"
+                    id="cod_barras_<?= $produto['id'] ?>"
+                    name="cod_barras"
+                    value="<?= ($produto['cod_barras'] ?? 0) == 0 ? '' : htmlspecialchars($produto['cod_barras']) ?>"
+                    placeholder="Cod. Barras">
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between w-100">
+            <div style="width: 180px;">
+                <select class="form-select form-select-sm"
+                    id="categoria_<?= $produto['id'] ?>"
+                    name="categoria_id">
+                    <?php foreach ($categorias as $categoria): ?>
+                        <option value="<?= $categoria['id'] ?>"
+                            <?= $produto['categoria_id'] == $categoria['id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($categoria['nome']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
             <button type="button"
                 class="btn btn-secondary btn-sm d-flex align-items-center ms-2 justify-content-center gap-1 salvar-produto"
                 data-produto-id="<?= $produto['id'] ?>" title="Salvar alterações" disabled>
-                <i class="bi bi-check-lg"></i> Salvar
+                <i class="bi bi-check-lg me-1"></i> Salvar
             </button>
         </div>
     </div>

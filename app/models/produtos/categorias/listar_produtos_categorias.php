@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../../config/database.php';
 
 $pagina = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
-$limite = isset($_GET['limite']) ? (int) $_GET['limite'] : 8;
+$limite = isset($_GET['limite']) ? (int) $_GET['limite'] : 10;
 $offset = ($pagina - 1) * $limite;
 
 $db = new Database();

@@ -1,4 +1,4 @@
-<div class="container py-2 py-xl-5">
+<div class="container-fluid bg-white py-2 py-xl-5">
     <div class="row">
 
         <div class="col-md-6 text-center position-relative">
@@ -108,7 +108,11 @@
                         </button>
 
                         <button class="btn btn-primary btn-lg px-4 shadow-sm flex-fill btn-carrinho"
-                            data-id="<?= $produtos['id'] ?>" title="Adicionar ao carrinho"
+                            data-id="<?= $produtos['id'] ?>"
+                            data-preco="<?= !empty($produtos['promocao']) && $produtos['promocao'] == 1 && !empty($produtos['preco_promocional'])
+                                            ? $produtos['preco_promocional']
+                                            : $produtos['preco'] ?>"
+                            title="Adicionar ao carrinho"
                             onclick="event.stopPropagation();">
                             Adicionar ao carrinho
                         </button>

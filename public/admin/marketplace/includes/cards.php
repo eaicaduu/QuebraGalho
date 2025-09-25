@@ -60,7 +60,5 @@
       </div>
     </div>
 
-    <?php include 'includes/produtos.php'; ?>
-
   </div>
 </div>

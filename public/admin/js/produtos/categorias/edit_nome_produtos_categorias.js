@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     icon: "success",
                     title: "Atualizado!",
                     text: "O nome da categoria foi atualizado com sucesso.",
-                    timer: 2000,
+                    timer: 3000,
                     confirmButtonColor: "#28a745"
                 });
 

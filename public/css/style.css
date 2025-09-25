@@ -136,6 +136,22 @@ table th {
   }
 }
 
+.quantidade-animada {
+    display: inline-block;
+}
+
+@keyframes quantidade-pop {
+    0%   { transform: scale(1); }
+    25%  { transform: scale(1.4); }
+    50%  { transform: scale(0.9); }
+    75%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.quantidade-pop {
+    animation: quantidade-pop 0.4s ease;
+}
+
 @keyframes badge-pop {
   0% { transform: scale(1); }
   50% { transform: scale(1.4); }

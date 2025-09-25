@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const clearBtn = document.getElementById("clearSearch");
     const paginacaoContainer = document.getElementById("paginacao-container");
 
-    const storagePrefix = "produtos_" + window.location.pathname.replace(/\//g, "_");
+    const storagePrefix = "categorias_" + window.location.pathname.replace(/\//g, "_");
     let limite = parseInt(localStorage.getItem(storagePrefix + "_limite")) || 10;
     let paginaAtual = parseInt(localStorage.getItem(storagePrefix + "_pagina")) || 1;
 
