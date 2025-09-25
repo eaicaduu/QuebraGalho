@@ -19,5 +19,5 @@ jobs:
           server: ftp.quebragalhoferragem.com.br
           username: quebragalhoferragem
           password: ferragemQG0305
-          local-dir: ./
+          local-dir: D:\web\localuser\quebragalhoferragem 
           port: 21
